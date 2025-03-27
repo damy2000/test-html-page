@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esopianeti: Un Viaggio tra Mondi Lontani</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* --- Reset Base & Stile Globale --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Scroll morbido per i link interni */
+        }
+
+        body {
+            font-family: 'Lato', sans-serif; /* Font primario */
+            background-color: #1a1a2e; /* Fallback colore scuro */
+            /* --- IMMAGINE DI SFONDO - SOSTITUISCI QUESTO URL --- */
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: #e0e0e0;
+            line-height: 1.7; /* Aumentata per leggibilità */
+            font-size: 16px; /* Dimensione base */
+            padding-bottom: 50px;
+        }
+
+        .page-container {
+            max-width: 960px; /* Larghezza ridotta per leggibilità testo */
+            margin: 40px auto;
+            padding: 40px;
+            background-color: rgba(26, 26, 46, 0.9); /* Sfondo più opaco per leggibilità testo */
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- Intestazione Pagina --- */
+        header.page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid rgba(129, 119, 214, 0.6);
+        }
+
+        header.page-header h1 {
+            font-family: 'Roboto', sans-serif; /* Font diverso per il titolo */
+            font-size: 3em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+        }
+
+        header.page-header .subtitle {
+            font-size: 1.5em;
+            color: #bdc3c7;
+            font-weight: 300;
+        }
+
+        /* --- Stile Sezioni Articolo --- */
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .content-section h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.2em;
+            color: #8177d6; /* Viola chiaro */
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(129, 119, 214, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Spazio tra icona e testo */
+        }
+         .content-section h2 i {
+             font-size: 0.9em; /* Icona leggermente più piccola del testo h2 */
+         }
+
+        .content-section p {
+            margin-bottom: 20px;
+            font-size: 1.1em; /* Testo leggermente più grande */
+            color: #d5d8dc; /* Grigio molto chiaro */
+        }
+
+         .content-section strong {
+             color: #ffdd57; /* Giallo per evidenziare */
+             font-weight: 700;
+         }
+
+         .content-section ul {
+            list-style: none;
+            padding-left: 20px;
+            margin-bottom: 20px;
+         }
+          .content-section ul li {
+             margin-bottom: 10px;
+             padding-left: 20px;
+             position: relative;
+             font-size: 1.05em;
+          }
+           .content-section ul li::before {
+            content: '\f192'; /* Icona pallino da Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #8177d6; /* Viola */
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.8em;
+           }
+
+        /* --- Stile Elementi Evidenziati (Sostituiscono le Card) --- */
+        .highlight-box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+
+        .highlight-box {
+            background-color: rgba(45, 52, 54, 0.85);
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 5px solid #55efc4; /* Bordo sinistro colorato */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            flex: 1;
+            min-width: 260px;
+            transition: background-color 0.3s ease;
+        }
+         .highlight-box:hover {
+             background-color: rgba(65, 72, 74, 0.9);
+         }
+
+        .highlight-box h3 {
+            font-size: 1.5em;
+            color: #ffdd57; /* Giallo */
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+         .highlight-box h3 i {
+             font-size: 1em;
+             color: #55efc4; /* Verde acqua per icone box */
+         }
+         /* Colori specifici bordi e icone */
+         .highlight-box.type-gas { border-left-color: #fab1a0; }
+         .highlight-box.type-gas i { color: #fab1a0; }
+         .highlight-box.type-ocean { border-left-color: #74b9ff; }
+         .highlight-box.type-ocean i { color: #74b9ff; }
+
+         .highlight-box.method-radial { border-left-color: #ffdd57; }
+         .highlight-box.method-radial i { color: #ffdd57; }
+         .highlight-box.method-imaging { border-left-color: #a29bfe; }
+         .highlight-box.method-imaging i { color: #a29bfe; }
+         .highlight-box.method-micro { border-left-color: #fab1a0; }
+         .highlight-box.method-micro i { color: #fab1a0; }
+
+
+        .highlight-box ul {
+            padding-left: 5px; /* Meno indentazione interna */
+            font-size: 0.95em;
+        }
+         .highlight-box ul li::before {
+             content: '•'; /* Pallino semplice per liste interne */
+             font-family: inherit; /* Usa font normale */
+             font-weight: bold;
+             color: #bdc3c7; /* Grigio chiaro */
+             font-size: 1em;
+             top: 0;
+         }
+
+        .examples {
+            font-size: 0.9em;
+            color: #95a5a6;
+            margin-top: 15px;
+            font-style: italic;
+        }
+         .percentage {
+            font-size: 1em;
+            font-weight: bold;
+            color: #ffdd57;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* --- Zona Abitabile & Timeline --- */
+        .habitable-zone-visual { /* Esempio: semplice div stilizzato */
+            height: 50px;
+            background: linear-gradient(to right, rgba(255,100,100,0.5), rgba(100,255,100,0.7) 40%, rgba(100,255,100,0.7) 60%, rgba(100,100,255,0.5));
+            border-radius: 5px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            font-weight: bold;
+        }
+         .timeline-item {
+            margin-bottom: 15px;
+            border-left: 3px solid #8177d6;
+            padding-left: 15px;
+         }
+          .timeline-item strong { /* Anno */
+            display: block;
+            color: #55efc4;
+            font-weight: 700;
+            margin-bottom: 3px;
+         }
+
+        /* --- Stili per Animazione Canvas --- */
+        .canvas-container {
+            margin: 30px auto;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            position: relative; /* Per posizionare le label */
+            max-width: 630px; /* Larghezza canvas + padding */
+        }
+        #transitCanvas {
+            background-color: #000010; /* Sfondo nero/blu scuro per canvas */
+            border-radius: 5px;
+            /* width: 100%; */ /* Rende il canvas responsivo MA distorce il disegno se non gestito in JS */
+            /* height: auto; */
+            max-width: 100%;
+        }
+
+        .animation-explanation {
+            font-size: 0.9em;
+            color: #bdc3c7;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+
+        /* --- Tabella --- */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(45, 52, 54, 0.7);
+        }
+
+        th, td {
+            border: 1px solid rgba(129, 119, 214, 0.3);
+            padding: 12px 15px;
+            text-align: left;
+            color: #e0e0e0;
+            vertical-align: top; /* Allinea in alto per testi lunghi */
+        }
+
+        th {
+            background-color: rgba(129, 119, 214, 0.5);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: rgba(17, 20, 34, 0.8);
+        }
+        tbody tr:hover {
+            background-color: rgba(85, 239, 196, 0.2); /* Verde molto tenue */
+        }
+
+        /* --- Footer --- */
+        footer.page-footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(129, 119, 214, 0.3);
+            text-align: center;
+            font-size: 0.9em;
+            color: #95a5a6;
+        }
+         footer.page-footer a {
+             color: #74b9ff;
+             text-decoration: none;
+         }
+          footer.page-footer a:hover {
+              text-decoration: underline;
+          }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+             .page-container {
+                 max-width: 90%;
+                 padding: 30px;
+             }
+        }
+
+        @media (max-width: 768px) {
+            body { font-size: 15px; }
+            .page-container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            header.page-header h1 { font-size: 2.4em; }
+            header.page-header .subtitle { font-size: 1.2em; }
+            .content-section h2 { font-size: 1.8em; }
+            .content-section p { font-size: 1em; }
+
+            .highlight-box-container {
+                flex-direction: column; /* Impila i box */
+            }
+            .highlight-box {
+                 min-width: 100%; /* Occupa tutta larghezza */
+            }
+             #transitCanvas {
+                /* Forzare dimensioni più piccole su mobile se necessario */
+                /* width: 400px; */
+                /* height: 267px; */ /* Mantenere aspect ratio 3:2 */
+             }
+        }
+         @media (max-width: 480px) {
+             header.page-header h1 { font-size: 2em; }
+              #transitCanvas {
+                width: 300px; /* Ancora più piccolo */
+                height: 200px;
+             }
+             .canvas-container { max-width: 330px; }
+             .graph-labels { height: 60px; bottom: 35px;} /* Riduci altezza grafico e sposta sopra spiegazione */
+             .animation-explanation { font-size: 0.8em;}
+         }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <header class="page-header">
+            <h1><i class="fa-solid fa-universe"></i> Esopianeti: Un Viaggio tra Mondi Lontani</h1>
+            <p class="subtitle">Esploriamo la Diversità dei Pianeti Extrasolari, le Tecniche per Scovarli e la Ricerca di Vita</p>
+        </header>
+
+        <main>
+            <section class="content-section" id="introduzione">
+                 <h2><i class="fa-solid fa-star"></i> Oltre il Sistema Solare</h2>
+                 <p>Per millenni, l'umanità ha guardato il cielo notturno chiedendosi se fossimo soli nell'universo. Solo negli ultimi decenni abbiamo iniziato a trovare una risposta concreta: il cosmo pullula di pianeti che orbitano attorno a stelle diverse dal nostro Sole. Questi mondi lontani, chiamati <strong>esopianeti</strong>, mostrano una diversità sorprendente, sfidando spesso le nostre teorie sulla formazione planetaria.</p>
+                 <p>La loro scoperta ha aperto una nuova era nell'astronomia, permettendoci non solo di catalogare nuovi mondi, ma anche di studiarne le caratteristiche, le atmosfere e, forse un giorno, di trovare segni di vita extraterrestre. Questo articolo vi guiderà attraverso le principali categorie di esopianeti conosciuti, i metodi ingegnosi usati per individuarli e le frontiere attuali della ricerca.</p>
+            </section>
+
+            <section class="content-section" id="tipologie">
+                <h2><i class="fa-solid fa-shapes"></i> Una Straordinaria Varietà: Tipi di Esopianeti</h2>
+                <p>Lontani dall'essere semplici copie del nostro Sistema Solare, gli esopianeti presentano un incredibile assortimento di dimensioni, masse e composizioni. Gli astronomi li classificano in diverse categorie principali per comprenderne meglio la natura e l'origine. Anche se i confini tra queste categorie non sono sempre netti, ci aiutano a dipingere un quadro della popolazione planetaria galattica. Ecco alcune delle tipologie più comuni:</p>
+
+                <div class="highlight-box-container">
+                    <div class="highlight-box type-super-earth">
+                        <h3><i class="fa-solid fa-earth-americas"></i> Super-Terre</h3>
+                        <p>Questi pianeti sono più massicci della Terra ma più leggeri dei giganti gassosi come Nettuno (generalmente tra 1 e 10 masse terrestri). Si pensa che abbiano una composizione prevalentemente rocciosa, simile alla Terra, ma potrebbero avere atmosfere molto più dense o presentare condizioni superficiali radicalmente diverse.</p>
+                        <ul>
+                            <li><strong>Massa:</strong> 1–10 M⊕</li>
+                            <li><strong>Composizione:</strong> Presumibilmente rocciosa</li>
+                            <li><strong>Potenziale Acqua:</strong> Alcune potrebbero trovarsi nella zona abitabile</li>
+                        </ul>
+                        <p class="examples">Esempi notevoli: 55 Cancri e (un mondo forse di lava o diamante), Kepler-186f (in zona abitabile)</p>
+                    </div>
+                    <div class="highlight-box type-gas">
+                        <h3><i class="fa-solid fa-globe"></i> Giganti Gassosi (e "Hot Jupiters")</h3>
+                        <p>Simili a Giove e Saturno, questi pianeti sono composti principalmente da idrogeno ed elio, con atmosfere immense e nessun-superficie solida definita. Una sottoclasse affascinante sono gli <strong>"Hot Jupiters"</strong>: giganti gassosi che orbitano incredibilmente vicino alla loro stella, completando un'orbita in pochi giorni e raggiungendo temperature torride.</p>
+                        <ul>
+                            <li><strong>Composizione:</strong> Idrogeno, Elio</li>
+                            <li><strong>Superficie:</strong> Assente</li>
+                            <li><strong>Caratteristica:</strong> Atmosfere profonde e turbolente</li>
+                        </ul>
+                        <p class="examples">Esempi notevoli: 51 Pegasi b (il primo scoperto attorno a una stella simile al Sole), HD 209458 b (il primo con transito osservato), WASP-12b (ultra-caldo)</p>
+                    </div>
+                     <div class="highlight-box type-ocean">
+                        <h3><i class="fa-solid fa-water"></i> Pianeti Oceanici (Ipotetici)</h3>
+                        <p>Sebbene non ancora confermati con certezza, i modelli teorici suggeriscono l'esistenza di pianeti quasi interamente coperti da profondi oceani globali. Questi mondi potrebbero formarsi lontano dalla loro stella, dove l'acqua è abbondante come ghiaccio, per poi migrare verso l'interno. Sono considerati candidati promettenti per la ricerca di vita.</p>
+                        <ul>
+                            <li><strong>Copertura:</strong> Oceani globali profondi</li>
+                            <li><strong>Abitabilità:</strong> Potenzialmente alta (se in zona abitabile)</li>
+                            <li><strong>Composizione:</strong> Ricchi d'acqua</li>
+                        </ul>
+                        <p class="examples">Esempi possibili: Alcuni pianeti nel sistema TRAPPIST-1 potrebbero avere grandi quantità d'acqua.</p>
+                    </div>
+                    </div>
+                 <p>Esistono anche altre categorie, come i <strong>Mini-Nettuno</strong> (più piccoli di Nettuno ma più grandi delle Super-Terre, probabilmente con spesse atmosfere di idrogeno/elio sopra un nucleo roccioso/ghiacciato) e i <strong>pianeti "orfani"</strong> o interstellari, che vagano nello spazio senza orbitare attorno a una stella.</p>
+            </section>
+
+            <section class="content-section" id="metodi">
+                <h2><i class="fa-solid fa-search-location"></i> Come Scovare Mondi Lontani: Metodi di Rilevamento</h2>
+                <p>Individuare un pianeta delle dimensioni della Terra (o persino di Giove) accanto a una stella lontana milioni di miliardi di chilometri è una sfida tecnologica immensa. La luce diretta del pianeta è spesso miliardi di volte più debole di quella della sua stella. Per questo, gli astronomi hanno sviluppato metodi indiretti incredibilmente sensibili, insieme a tecniche dirette sempre più potenti.</p>
+
+                 <div class="highlight-box-container">
+                    <div class="highlight-box method-transit">
+                        <h3><i class="fa-solid fa-chart-line"></i> Metodo del Transito</h3>
+                        <p>Questo è il metodo di maggior successo finora. Consiste nell'osservare minime e periodiche diminuzioni della luminosità di una stella quando un pianeta passa davanti ad essa lungo la nostra linea di vista.</p>
+                         <span class="percentage">Responsabile di ~70% delle scoperte</span>
+                        <p class="examples">Missioni chiave: Kepler, TESS, CoRoT. Pianeti scoperti: Kepler-22b, TRAPPIST-1 (sistema).</p>
+                    </div>
+                     <div class="highlight-box method-radial">
+                        <h3><i class="fa-solid fa-wave-square"></i> Metodo della Velocità Radiale</h3>
+                        <p>Misura le piccole oscillazioni della stella causate dall'attrazione gravitazionale del pianeta orbitante, rilevando lo spostamento Doppler nella luce stellare.</p>
+                        <span class="percentage">Responsabile di ~20% delle scoperte</span>
+                        <p class="examples">Strumenti chiave: HARPS, ESPRESSO. Pianeti scoperti: 51 Pegasi b, Proxima Centauri b.</p>
+                    </div>
+                 </div>
+                 <div class="highlight-box-container">
+                     <div class="highlight-box method-imaging">
+                        <h3><i class="fa-solid fa-telescope"></i> Imaging Diretto</h3>
+                        <p>La tecnica più intuitiva ma difficile: scattare una foto diretta del pianeta bloccando la luce della stella. Funziona meglio per pianeti grandi, giovani e lontani dalla stella.</p>
+                         <span class="percentage">Responsabile di ~1-2% delle scoperte</span>
+                        <p class="examples">Sistemi osservati: HR 8799, Beta Pictoris b.</p>
+                    </div>
+                     <div class="highlight-box method-micro">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Microlensing Gravitazionale</h3>
+                        <p>Sfrutta l'effetto "lente" gravitazionale previsto da Einstein quando una stella (con pianeta) passa davanti a una stella più distante, amplificandone la luce.</p>
+                        <span class="percentage">Responsabile di ~1-2% delle scoperte</span>
+                        <p class="examples">Pianeti scoperti: OGLE-2005-BLG-390Lb.</p>
+                    </div>
+                 </div>
+            </section>
+
+            <section class="content-section" id="transit-deep-dive">
+                <h2><i class="fa-solid fa-chart-line"></i> Approfondimento: Il Metodo dei Transiti Visualizzato</h2>
+                <p>Il metodo dei transiti permette di individuare nuovi pianeti attorno a stelle lontane osservando le diminuzioni periodiche nella luminosità delle stelle stesse. Ogni volta che un pianeta passa davanti alla sua stella (dal nostro punto di vista), blocca una piccola porzione della luce che ci arriva. Questo crea un "calo" temporaneo nella luminosità misurata, un segnale periodico che, se osservato ripetutamente, tradisce la presenza di un compagno orbitante.</p>
+                <p>L'entità del calo di luminosità dipende dal rapporto tra le dimensioni del pianeta e quelle della stella: pianeti più grandi bloccano più luce. La durata del transito ci dà informazioni sulla velocità orbitale, mentre il tempo che intercorre tra transiti successivi rivela il periodo orbitale del pianeta. È il metodo che ha permesso la scoperta della maggior parte degli esopianeti noti, grazie a missioni spaziali come Kepler e TESS.</p>
+
+                <div class="canvas-container">
+                     <canvas id="transitCanvas" width="600" height="350">Il tuo browser non supporta l'elemento Canvas.</canvas>
+             
+                     <p class="animation-explanation">L'animazione sopra mostra una stella (gialla) e un pianeta (scuro) che le passa davanti. Il grafico sottostante (curva di luce) mostra come la luminosità della stella diminuisce temporaneamente durante il passaggio (transito) del pianeta.</p>
+                </div>
+            </section>
+            <section class="content-section" id="atmosfere">
+                <h2><i class="fa-solid fa-cloud"></i> Dentro le Atmosfere Aliene</h2>
+                <p>Una delle frontiere più eccitanti dell'esoplanetologia è lo studio delle atmosfere di questi mondi lontani. Analizzando la luce della stella che filtra attraverso l'atmosfera del pianeta durante un transito (spettroscopia di trasmissione) o la luce emessa/riflessa direttamente dal pianeta (spettroscopia di emissione/riflessione), gli astronomi possono iniziare a decifrarne la composizione chimica e le condizioni fisiche.</p>
+                <p>Questo ci permette di cercare ingredienti familiari come <strong>acqua (H₂O), metano (CH₄), anidride carbonica (CO₂)</strong>, ma anche elementi più esotici. Le atmosfere rivelano anche indizi sul clima del pianeta:</p>
+                <ul>
+                    <li><strong>Climi Estremi:</strong> Molti "Hot Jupiters" mostrano temperature superficiali che superano i 1000°C o persino i 2500°C (come WASP-12b), con venti potentissimi e forse nubi di silicati o metalli vaporizzati.</li>
+                    <li><strong>Pianeti di Lava:</strong> Super-Terre molto vicine alla loro stella, come CoRoT-7b o 55 Cancri e, potrebbero avere superfici permanentemente fuse.</li>
+                    <li><strong>Effetto Serra:</strong> Come su Venere, atmosfere dense e ricche di gas serra possono innalzare drasticamente le temperature superficiali anche su pianeti rocciosi.</li>
+                </ul>
+                 <p>La ricerca si concentra anche sulle <strong>biosignature</strong>: gas o combinazioni di gas (come ossigeno O₂ e metano CH₄ presenti contemporaneamente) che sulla Terra sono prodotti prevalentemente da processi biologici. Rilevarli su un esopianeta sarebbe un'indicazione potenzialmente rivoluzionaria, anche se l'interpretazione è complessa e richiede cautela per escludere processi geologici o fotochimici non biologici.</p>
+                 <p>Il <strong>Telescopio Spaziale James Webb (JWST)</strong> sta attualmente fornendo dati spettacolari sulle atmosfere di numerosi esopianeti, aprendo una nuova finestra sulla loro chimica e fisica.</p>
+             </section>
+
+            <section class="content-section" id="abitabilita">
+                <h2><i class="fa-solid fa-map-marker-alt"></i> La Caccia all'Abitabilità: Zone "Goldilocks" e Oltre</h2>
+                <p>Uno degli obiettivi primari della ricerca esoplanetaria è trovare mondi potenzialmente abitabili, cioè capaci di ospitare vita come la conosciamo. Il concetto guida è la <strong>"Zona Abitabile" (HZ)</strong>, spesso chiamata anche "Zona Goldilocks". Si tratta di quella regione orbitale attorno a una stella dove le temperature superficiali di un pianeta roccioso con un'atmosfera adatta potrebbero permettere all'acqua di esistere allo stato liquido, un ingrediente considerato essenziale per la vita.</p>
+                <div class="habitable-zone-visual">Zona Fredda --- ZONA ABITABILE --- Zona Calda</div>
+                <p>La posizione e l'estensione della Zona Abitabile dipendono fortemente dal tipo di stella: è più vicina e stretta per le stelle nane rosse (più fredde e piccole del Sole) e più lontana e ampia per le stelle più calde e massicce. Tuttavia, trovarsi nella HZ non garantisce l'abitabilità:</p>
+                <ul>
+                    <li>L'<strong>atmosfera</strong> gioca un ruolo cruciale: un pianeta senza atmosfera o con una troppo sottile non tratterrebbe calore, mentre una troppo densa potrebbe causare un effetto serra incontrollato (come Venere).</li>
+                    <li>L'<strong>attività stellare</strong> (brillamenti, vento stellare) può essere un problema, specialmente per i pianeti attorno alle nane rosse.</li>
+                    <li>La presenza di un <strong>campo magnetico</strong> planetario è importante per proteggere l'atmosfera e la superficie dalle radiazioni.</li>
+                </ul>
+                 <p>Nonostante queste complessità, sono stati scoperti numerosi candidati promettenti nella Zona Abitabile delle loro stelle, tra cui:</p>
+                 <ul>
+                     <li><strong>Proxima Centauri b:</strong> Il pianeta potenzialmente abitabile più vicino a noi (4.2 anni luce), orbita attorno a una nana rossa.</li>
+                     <li><strong>Sistema TRAPPIST-1:</strong> Ospita ben 3-4 pianeti di dimensioni terrestri nella sua zona abitabile.</li>
+                     <li><strong>Kepler-186f:</strong> Il primo pianeta di dimensioni terrestri trovato nella HZ di un'altra stella.</li>
+                     <li><strong>Kepler-452b:</strong> A volte definito il "cugino della Terra", orbita una stella simile al Sole.</li>
+                 </ul>
+                 <p>La prossima fase della ricerca, guidata da telescopi come JWST e future missioni come PLATO e Ariel, si concentrerà sull'analisi dettagliata delle atmosfere di questi mondi promettenti alla ricerca di acqua e, soprattutto, di quelle elusive <strong>biosignature</strong> che potrebbero tradire la presenza di vita.</p>
+            </section>
+
+            <section class="content-section" id="statistiche">
+                 <h2><i class="fa-solid fa-chart-pie"></i> L'Esplosione delle Scoperte: Numeri e Missioni</h2>
+                 <p>Il campo dell'esoplanetologia è uno dei più dinamici dell'astronomia moderna. Dalla prima, storica scoperta di <strong>51 Pegasi b nel 1995</strong>, il numero di mondi confermati al di fuori del nostro Sistema Solare è cresciuto in modo esponenziale. Ad oggi (Marzo 2025), abbiamo superato la soglia dei <strong>5.600 esopianeti confermati</strong>, e ci sono oltre <strong>9.000 candidati</strong> in attesa di verifica, principalmente dai dati delle missioni spaziali dedicate.</p>
+                 <p>Questa rivoluzione è stata guidata da strumenti e missioni sempre più sofisticati:</p>
+                 <ul>
+                     <li>Le missioni pioniere come <strong>CoRoT</strong> (europea) e soprattutto <strong>Kepler</strong> (NASA, 2009-2018) hanno utilizzato il metodo del transito per scandagliare porzioni di cielo, rivelando migliaia di pianeti e dimostrando che i pianeti sono estremamente comuni nella Galassia.</li>
+                     <li><strong>TESS</strong> (NASA, 2018-oggi) sta continuando il lavoro di Kepler, monitorando quasi tutto il cielo alla ricerca di pianeti in transito attorno a stelle vicine e luminose, ideali per studi successivi.</li>
+                     <li>Strumenti da terra ad altissima precisione come <strong>HARPS</strong> ed <strong>ESPRESSO</strong> (ESO, Cile) continuano a perfezionare il metodo della velocità radiale, scoprendo pianeti di massa sempre più piccola.</li>
+                     <li>Il <strong>Telescopio Spaziale Hubble</strong> e, in modo ancora più potente, il <strong>JWST</strong> (NASA/ESA/CSA, 2021-oggi) stanno rivoluzionando lo studio delle atmosfere esoplanetarie.</li>
+                 </ul>
+                 <p>Il futuro promette ulteriori scoperte entusiasmanti con missioni come <strong>PLATO</strong> (ESA, lancio previsto ~2026), che cercherà pianeti simili alla Terra attorno a stelle simili al Sole, e <strong>Ariel</strong> (ESA, lancio previsto ~2029), dedicata specificamente allo studio delle atmosfere di un gran numero di esopianeti.</p>
+
+                 <h3>Momenti Chiave nella Scoperta Esoplanetaria:</h3>
+                 <div class="timeline">
+                     <div class="timeline-item">
+                        <strong>1992:</strong> Primi pianeti scoperti attorno alla pulsar PSR B1257+12.
+                     </div>
+                     <div class="timeline-item">
+                         <strong>1995:</strong> 51 Pegasi b - Rivoluziona il campo con la prima scoperta attorno a una stella di tipo solare.
+                     </div>
+                     <div class="timeline-item">
+                         <strong>1999:</strong> HD 209458 b - Primo pianeta osservato mentre transita davanti alla sua stella.
+                     </div>
+                     <div class="timeline-item">
+                         <strong>2009:</strong> Lancio della missione Kepler - Inizia la "caccia grossa" statistica.
+                     </div>
+                     <div class="timeline-item">
+                         <strong>2016:</strong> Annuncio di Proxima Centauri b - Il pianeta potenzialmente abitabile più vicino.
+                     </div>
+                      <div class="timeline-item">
+                         <strong>2018:</strong> Lancio della missione TESS - Il successore "all-sky" di Kepler.
+                     </div>
+                     <div class="timeline-item">
+                         <strong>2021/2022:</strong> Prime osservazioni di JWST - Inizia una nuova era nello studio delle atmosfere.
+                     </div>
+                 </div>
+            </section>
+
+             <section class="content-section" id="tabella">
+                <h2><i class="fa-solid fa-list-ul"></i> Galleria di Mondi Notevoli: Una Tabella Riassuntiva</h2>
+                <p>Per dare un'idea concreta della diversità degli esopianeti scoperti e dei metodi utilizzati, la tabella seguente riassume le caratteristiche di alcuni dei mondi più famosi o significativi studiati finora. Ogni riga rappresenta un esempio che illustra le categorie e le tecniche discusse in questo articolo.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pianeta</th>
+                                <th>Tipologia</th>
+                                <th>Metodo/i Scoperta</th>
+                                <th>Strumento/Missione Principale</th>
+                                <th>Note Salienti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>51 Pegasi b</td><td>Hot Jupiter</td><td>Velocità Radiale</td><td>ELODIE</td><td>Primo esopianeta scoperto attorno a una stella simile al Sole (1995).</td></tr>
+                            <tr><td>HD 209458 b ("Osiris")</td><td>Hot Jupiter</td><td>Transito + Vel. Radiale</td><td>STARE, HST, Spitzer</td><td>Primo transito osservato; prima atmosfera studiata (sodio, idrogeno in fuga).</td></tr>
+                            <tr><td>Kepler-22b</td><td>Super-Terra / Mini-Nettuno</td><td>Transito</td><td>Kepler</td><td>Uno dei primi pianeti scoperti da Kepler nella Zona Abitabile di una stella simile al Sole.</td></tr>
+                            <tr><td>Gliese 581 (sistema)</td><td>Super-Terre / Nettuniani</td><td>Velocità Radiale</td><td>HARPS</td><td>Famoso sistema multiplo attorno a una nana rossa; l'abitabilità di alcuni pianeti (e, g) è discussa.</td></tr>
+                            <tr><td>Proxima Centauri b</td><td>Simil-Terrestre (Massa min ~1.3 M⊕)</td><td>Velocità Radiale</td><td>HARPS, ESPRESSO</td><td>Il pianeta potenzialmente abitabile più vicino a noi (4.2 anni luce), orbita una nana rossa attiva.</td></tr>
+                            <tr><td>CoRoT-7b</td><td>Super-Terra (Pianeta di Lava)</td><td>Transito</td><td>CoRoT</td><td>Considerato il primo pianeta roccioso confermato (diametro ~1.6 D⊕), estremamente vicino alla sua stella.</td></tr>
+                            <tr><td>55 Cancri e</td><td>Super-Terra (Diamante/Lava?)</td><td>Vel. Radiale + Transito</td><td>Varie, Spitzer, JWST</td><td>Densissimo, caldissimo, orbita in meno di 18 ore. Composizione interna dibattuta (forse ricco di carbonio).</td></tr>
+                            <tr><td>TRAPPIST-1 (sistema)</td><td>Pianeti Terrestri (7)</td><td>Transito</td><td>TRAPPIST, Spitzer, K2, JWST</td><td>Sistema iconico attorno a una nana rossa ultra-fredda, con 3-4 pianeti nella Zona Abitabile. Obiettivo primario per JWST.</td></tr>
+                            <tr><td>HR 8799 (sistema)</td><td>Giganti Gassosi (4)</td><td>Imaging Diretto</td><td>Keck, Gemini, VLT</td><td>Primo sistema multiplo di pianeti ad essere stato fotografato direttamente attorno a una stella giovane.</td></tr>
+                            <tr><td>WASP-12b</td><td>Hot Jupiter (Ultra-caldo)</td><td>Transito</td><td>SuperWASP, HST, JWST</td><td>Uno dei pianeti più caldi conosciuti (>2500°C), così vicino alla stella da essere attivamente "divorato".</td></tr>
+                            <tr><td>Kepler-186f</td><td>Simil-Terrestre (~1.1 D⊕)</td><td>Transito</td><td>Kepler</td><td>Primo pianeta di dimensioni quasi terrestri confermato nella Zona Abitabile di un'altra stella (una nana rossa).</td></tr>
+                            <tr><td>OGLE-2005-BLG-390Lb</td><td>Super-Terra Fredda (~5.5 M⊕)</td><td>Microlensing Gravitazionale</td><td>OGLE, PLANET</td><td>Esempio di pianeta roccioso/ghiacciato scoperto a grande distanza con microlensing.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer class="page-footer">
+            <p>Pagina creata il 27 Marzo 2025. Dati basati su fonti astronomiche aggiornate (es. NASA Exoplanet Archive, Enciclopedia dei Pianeti Extrasolari).</p>
+            <p>Immagine di sfondo via <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>.</p>
+        </footer>
+
+    </div><script>
+    // Attendere che il DOM sia completamente caricato
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('transitCanvas');
+        if (canvas && canvas.getContext) {
+            const ctx = canvas.getContext('2d');
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+
+            // --- Parametri Stella, Pianeta ---
+            const starRadius = 60;
+            const starX = canvasWidth / 2;
+            const starY = canvasHeight / 2 - 60;
+            const starColor = '#FFD700';
+            const starGlowColor = 'rgba(255, 215, 0, 0.4)';
+
+            const planetRadius = 15;
+            const planetColor = '#222';
+            const planetStartX = -planetRadius * 3; // Posizione iniziale
+            let planetX = planetStartX;
+            const planetY = starY;
+            const planetSpeed = 0.7;
+            // Definisce la lunghezza totale del percorso del pianeta che verrà mappata sul grafico
+            const totalPathLength = canvasWidth + 6 * planetRadius;
+
+            // --- Parametri Grafico ---
+            const graphMargin = { top: 20, right: 20, bottom: 15, left: 25 }; // Ridotti margini bottom/left senza label
+            const graphY = starY + starRadius + 40;
+            const graphHeight = canvasHeight - graphY - graphMargin.bottom;
+            const graphWidth = canvasWidth - graphMargin.left - graphMargin.right;
+            const graphX = graphMargin.left;
+
+            const maxBrightness = 1.0;
+            const transitDepth = 0.1;
+            const minBrightness = maxBrightness - transitDepth;
+
+            const graphLineColor = '#4ecdc4';
+            const graphPointColor = 'rgba(200, 200, 200, 0.7)';
+            const graphAxisColor = '#aaa';
+            // const graphLabelColor = '#ccc'; // Non più necessario
+
+            // --- Dati Curva di Luce & Animazione ---
+            let lightCurveData = []; // Array di { time: mapped_time, value: noisy_brightness, trueValue: ideal_brightness }
+            let animationFrameId;
+            let frameCount = 0;
+            const samplingInterval = 4; // Mantieni campionamento ridotto
+
+            // --- Funzioni Ausiliarie (smoothstep come prima) ---
+            function smoothstep(edge0, edge1, x) { /* ... codice identico ... */
+                x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+                return x * x * (3 - 2 * x);
+             }
+
+            // --- Funzioni di Disegno (drawStar, drawPlanet come prima) ---
+            function drawStar() { /* ... codice identico ... */
+                ctx.shadowBlur = 15; ctx.shadowColor = starGlowColor;
+                ctx.fillStyle = starColor; ctx.beginPath();
+                ctx.arc(starX, starY, starRadius, 0, Math.PI * 2); ctx.fill();
+                ctx.shadowBlur = 0; ctx.fillStyle = starColor; ctx.beginPath();
+                ctx.arc(starX, starY, starRadius * 0.98, 0, Math.PI * 2); ctx.fill();
+            }
+            function drawPlanet() { /* ... codice identico ... */
+                ctx.fillStyle = planetColor; ctx.beginPath();
+                ctx.arc(planetX, planetY, planetRadius, 0, Math.PI * 2); ctx.fill();
+            }
+
+            // --- Calcolo Luminosità Teorica (come prima) ---
+            // Questa funzione definisce GIA' il timing corretto del transito basato sulla geometria
+            function calculateTrueBrightness(currentPlanetX) { /* ... codice identico ... */
+                const distance = Math.abs(currentPlanetX - starX);
+                const r_s = starRadius; const r_p = planetRadius;
+                const transitStartEdge = r_s + r_p; // T1 & T4
+                const transitFullStart = r_s - r_p; // T2 & T3
+                if (distance >= transitStartEdge) return maxBrightness; // Fuori transito
+                if (distance <= transitFullStart) return minBrightness; // Transito completo
+                // Fase parziale (T1->T2 o T3->T4)
+                const transitionFactor = 1.0 - smoothstep(transitFullStart, transitStartEdge, distance);
+                return maxBrightness - transitionFactor * transitDepth;
+             }
+
+            // --- Disegno Grafico (CON CLIPPING e SENZA ETICHETTE) ---
+            function drawGraph(currentScanX_onGraph) { // Riceve la posizione X della linea di scansione SUL GRAFICO
+                ctx.save(); // Salva stato contesto generale
+                ctx.translate(graphX, graphY); // Sposta origine in alto a sx area grafico
+
+                // 1. Disegna Assi (SENZA ETICHETTE)
+                ctx.strokeStyle = graphAxisColor; ctx.lineWidth = 1; ctx.beginPath();
+                ctx.moveTo(0, 0); ctx.lineTo(0, graphHeight); // Asse Y
+                ctx.lineTo(graphWidth, graphHeight); // Asse X
+                ctx.stroke();
+
+                // 2. Scala Y (come prima)
+                const yAxisMin = minBrightness - transitDepth * 0.3;
+                const yAxisMax = maxBrightness + transitDepth * 0.3;
+                const yAxisRange = yAxisMax - yAxisMin;
+
+                // --- Applicazione Clipping ---
+                ctx.save(); // Salva stato prima del clip
+                ctx.beginPath();
+                // Crea un rettangolo di clipping da sinistra fino alla posizione della linea di scansione
+                ctx.rect(0, 0, currentScanX_onGraph, graphHeight);
+                ctx.clip(); // Attiva il clipping: tutto ciò che verrà disegnato dopo sarà visibile solo dentro quest'area
+
+                // --- Disegna elementi che devono essere clippati ---
+
+                // 3. Disegna Punti Dati (Logica di mappatura ripristinata)
+                ctx.fillStyle = graphPointColor; ctx.globalAlpha = 0.8;
+                lightCurveData.forEach(point => {
+                    // Mappa il 'time' memorizzato (0 -> totalPathLength) alla coordinata x del grafico (0 -> graphWidth)
+                    const x = (point.time / totalPathLength) * graphWidth;
+                    const y = graphHeight * (1 - (point.value - yAxisMin) / yAxisRange);
+                    // Non serve controllare se x < currentScanX_onGraph, il clipping lo fa automaticamente
+                     ctx.beginPath();
+                     ctx.arc(x, y, 2, 0, Math.PI * 2);
+                     ctx.fill();
+                });
+                ctx.globalAlpha = 1.0;
+
+                // 4. Disegna Curva Fittata (Logica di mappatura ripristinata)
+                // Disegniamo l'INTERA curva teorica; il clipping la taglierà alla linea di scansione.
+                ctx.strokeStyle = graphLineColor; ctx.lineWidth = 2; ctx.beginPath();
+                let firstPoint = true;
+                const curveResolution = 1; // 1 punto per pixel orizzontale
+                for (let i = 0; i <= graphWidth; i += curveResolution) {
+                    const timeForCurve = (i / graphWidth) * totalPathLength;
+                    const planetXForCurve = timeForCurve - planetRadius * 3; // Mappatura inversa
+                    const trueValue = calculateTrueBrightness(planetXForCurve); // Luminosità teorica
+                    const x = i; // Coordinata x = pixel corrente
+                    const y = graphHeight * (1 - (trueValue - yAxisMin) / yAxisRange);
+
+                    if (firstPoint) { ctx.moveTo(x, y); firstPoint = false; }
+                    else { ctx.lineTo(x, y); }
+                }
+                ctx.stroke(); // Disegna la curva (verrà clippata)
+
+                // --- Fine elementi clippati ---
+                ctx.restore(); // Rimuove il clipping, ripristina stato salvato prima del clip
+
+                // 5. Disegna la Linea di Scansione (dopo aver rimosso il clip)
+                ctx.strokeStyle = 'rgba(255, 80, 80, 0.8)'; // Rosso più visibile
+                ctx.lineWidth = 1.5; // Leggermente più spessa
+                ctx.beginPath();
+                // Disegna linea verticale alla posizione corrente della scansione
+                ctx.moveTo(currentScanX_onGraph, 0);
+                ctx.lineTo(currentScanX_onGraph, graphHeight);
+                ctx.stroke();
+
+                ctx.restore(); // Ripristina stato contesto originale (prima del translate)
+            }
+
+            // --- Aggiornamento Dati (Logica di mappatura ripristinata) ---
+            function updateData() {
+                const trueBrightness = calculateTrueBrightness(planetX);
+                const noise = (Math.random() - 0.5) * (transitDepth * 0.5);
+                const noisyBrightness = trueBrightness + noise;
+                // Mappa la posizione corrente planetX a un valore 'time' per il grafico
+                const graphTime = planetX + planetRadius * 3; // Mappatura originale
+                lightCurveData.push({ time: graphTime, value: noisyBrightness, trueValue: trueBrightness });
+            }
+
+            // --- Loop di Animazione ---
+            function animate() {
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight); // Pulisci sempre tutto
+
+                // 1. Muovi Pianeta
+                planetX += planetSpeed;
+                frameCount++;
+
+                // 2. Gestisci Reset (basato sulla mappatura originale)
+                const currentTimeMapped = planetX + planetRadius * 3;
+                // Resetta quando il 'tempo mappato' supera la lunghezza totale del percorso
+                if (currentTimeMapped > totalPathLength) {
+                    planetX = planetStartX; // Ritorna all'inizio
+                    lightCurveData = [];    // Cancella i dati del grafico precedente
+                    frameCount = 0;
+                }
+
+                // 3. Aggiorna Dati (Campionamento)
+                if (frameCount % samplingInterval === 0) {
+                   updateData(); // Acquisisce dati basati sulla planetX corrente
+                }
+
+                // 4. Disegna Stella e Pianeta
+                drawStar();
+                drawPlanet(); // Nella posizione planetX corrente
+
+                // 5. Calcola Posizione Linea di Scansione sul Grafico
+                // Mappa il tempo corrente (basato su planetX) alla coordinata X del grafico
+                const currentScanX_onGraph = Math.max(0, Math.min(graphWidth, (currentTimeMapped / totalPathLength) * graphWidth));
+
+                // 6. Disegna Grafico passando la posizione della linea di scansione
+                drawGraph(currentScanX_onGraph);
+
+                animationFrameId = requestAnimationFrame(animate); // Prossimo frame
+            }
+
+            // --- Controllo Visibilità (come prima) ---
+            function handleVisibilityChange() { /* ... codice identico ... */
+                if (document.hidden) { cancelAnimationFrame(animationFrameId); }
+                else { cancelAnimationFrame(animationFrameId); animate(); }
+            }
+            document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
+            // Avvia l'animazione
+            animate();
+
+        } else { // Gestione Canvas non supportato (come prima)
+            /* ... codice identico ... */
+            console.error("Canvas non supportato o non trovato.");
+            const container = document.getElementById('transit-deep-dive').querySelector('.canvas-container');
+            if(container) { container.innerHTML = '<p style="color: #ffdd57; text-align: center;">Animazione non disponibile: ...</p>'; }
+        }
+    });
+</script>
+</body>
+</html>
