@@ -32,7 +32,7 @@
             line-height: 1.7; /* Aumentata per leggibilità */
             font-size: 16px; /* Dimensione base */
             padding-bottom: 50px;
-         }
+        }
 
         .page-container {
             max-width: 960px; /* Larghezza ridotta per leggibilità testo */
@@ -61,7 +61,7 @@
             margin-bottom: 50px;
             padding-bottom: 25px;
             border-bottom: 3px solid rgba(129, 119, 214, 0.6);
-         }
+        }
 
         header.page-header h1 {
             font-family: 'Roboto', sans-serif; /* Font diverso per il titolo */
@@ -70,7 +70,7 @@
             margin-bottom: 15px;
             font-weight: 700;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
-         }
+        }
 
         header.page-header .subtitle {
             font-size: 1.5em;
@@ -78,10 +78,41 @@
             font-weight: 300;
         }
 
+        /* --- Stile Immagini Aggiunte --- */
+        .cover-image-container,
+        .section-image-container {
+            margin: 30px auto 40px auto; /* Aggiunge spazio sopra e sotto */
+            text-align: center; /* Centra l'immagine e la didascalia */
+        }
+        .cover-image,
+        .section-image {
+            max-width: 100%;
+            height: auto; /* Mantiene le proporzioni */
+            border-radius: 8px; /* Angoli arrotondati */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            display: block; /* Necessario per margin:auto */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cover-image {
+             max-height: 400px; /* Limita altezza immagine copertina */
+             object-fit: cover; /* Taglia l'immagine se necessario per riempire */
+        }
+        .image-caption {
+            font-size: 0.85em;
+            color: #95a5a6; /* Grigio chiaro */
+            margin-top: 10px; /* Spazio tra immagine e didascalia */
+            font-style: italic;
+        }
+        .image-caption a {
+            color: #74b9ff; /* Blu chiaro per i link */
+        }
+
+
         /* --- Stile Sezioni Articolo --- */
         .content-section {
             margin-bottom: 60px;
-         }
+        }
 
         .content-section h2 {
             font-family: 'Roboto', sans-serif;
@@ -248,7 +279,7 @@
             /* width: 100%; */ /* Rende il canvas responsivo MA distorce il disegno se non gestito in JS */
             /* height: auto; */
             max-width: 100%;
-         }
+        }
 
         .animation-explanation {
             font-size: 0.9em;
@@ -287,7 +318,7 @@
 
         tbody tr:nth-child(odd) {
             background-color: rgba(17, 20, 34, 0.8);
-         }
+        }
         tbody tr:hover {
             background-color: rgba(85, 239, 196, 0.2); /* Verde molto tenue */
         }
@@ -300,7 +331,7 @@
             text-align: center;
             font-size: 0.9em;
             color: #95a5a6;
-         }
+        }
          footer.page-footer a {
              color: #74b9ff; /* Blu chiaro per tutti i link footer */
              text-decoration: none;
@@ -351,7 +382,7 @@
               #transitCanvas {
                 width: 300px; /* Ancora più piccolo */
                 height: 200px;
-             }
+              }
              .canvas-container { max-width: 330px; }
              .graph-labels { height: 60px; bottom: 35px;} /* Riduci altezza grafico e sposta sopra spiegazione */
              .animation-explanation { font-size: 0.8em;}
@@ -366,7 +397,7 @@
             background-color: rgba(45, 52, 54, 0.7);
             border-radius: 5px;
             border: 1px solid rgba(129, 119, 214, 0.4);
-         }
+        }
         .control-group {
             display: flex;
             flex-direction: column;
@@ -393,7 +424,7 @@
             display: inline-block;
             min-width: 25px; /* Spazio per il numero */
             text-align: right;
-         }
+        }
 
 
     </style>
@@ -401,20 +432,55 @@
 <body>
 
     <div class="page-container">
+
+        <div class="cover-image-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Artist%27s_impression_of_the_planet_orbiting_Proxima_Centauri_%28cropped%29.jpg/1024px-Artist%27s_impression_of_the_planet_orbiting_Proxima_Centauri_%28cropped%29.jpg"
+                 alt="Rappresentazione artistica di Proxima Centauri b"
+                 title="Rappresentazione artistica di Proxima Centauri b"
+                 class="cover-image">
+            <p class="image-caption">
+                Rappresentazione artistica di Proxima Centauri b. Fonte:
+                <a href="https://commons.wikimedia.org/wiki/File:Artist%27s_impression_of_the_planet_orbiting_Proxima_Centauri_(cropped).jpg" target="_blank" rel="noopener noreferrer">ESO/M. Kornmesser, Wikimedia Commons</a> (CC BY 4.0)
+            </p>
+        </div>
         <header class="page-header">
             <h1><i class="fa-solid fa-universe"></i> <a href="https://it.wikipedia.org/wiki/Pianeta_extrasolare" target="_blank" rel="noopener noreferrer">Esopianeti</a>: Un Viaggio tra Mondi Lontani</h1>
             <p class="subtitle">Esploriamo la Diversità dei <a href="https://it.wikipedia.org/wiki/Pianeta_extrasolare" target="_blank" rel="noopener noreferrer">Pianeti Extrasolari</a>, le Tecniche per Scovarli e la Ricerca di Vita</p>
         </header>
 
         <main>
-            <section class="content-section" id="introduzione">
+
+             <section class="content-section" id="introduzione">
                 <h2><i class="fa-solid fa-star"></i> Oltre il <a href="https://it.wikipedia.org/wiki/Sistema_solare" target="_blank" rel="noopener noreferrer">Sistema Solare</a></h2>
-                 <p>Per millenni, l'umanità ha guardato il cielo notturno chiedendosi se fossimo soli nell'universo. Solo negli ultimi decenni abbiamo iniziato a trovare una risposta concreta: il cosmo pullula di pianeti che orbitano attorno a <a href="https://it.wikipedia.org/wiki/Stella" target="_blank" rel="noopener noreferrer">stelle</a> diverse dal nostro <a href="https://it.wikipedia.org/wiki/Sole" target="_blank" rel="noopener noreferrer">Sole</a>. Questi mondi lontani, chiamati <strong><a href="https://it.wikipedia.org/wiki/Pianeta_extrasolare" target="_blank" rel="noopener noreferrer">esopianeti</a></strong>, mostrano una diversità sorprendente, sfidando spesso le nostre teorie sulla <a href="https://it.wikipedia.org/wiki/Formazione_ed_evoluzione_del_Sistema_solare" target="_blank" rel="noopener noreferrer">formazione planetaria</a>.</p>
+
+                <div class="section-image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Comparison_of_solar_system_planets_and_exoplanets_detected_by_Kepler_%28artist%27s_impression%29.jpg/1024px-Comparison_of_solar_system_planets_and_exoplanets_detected_by_Kepler_%28artist%27s_impression%29.jpg"
+                         alt="Confronto tra pianeti del Sistema Solare e alcuni esopianeti scoperti da Kepler"
+                         title="Confronto dimensioni pianeti"
+                         class="section-image"
+                         style="max-width: 700px;"> <p class="image-caption">
+                        Confronto artistico tra i pianeti del Sistema Solare e alcuni esopianeti scoperti da Kepler. Fonte:
+                        <a href="https://commons.wikimedia.org/wiki/File:Comparison_of_solar_system_planets_and_exoplanets_detected_by_Kepler_(artist%27s_impression).jpg" target="_blank" rel="noopener noreferrer">NASA/Ames/JPL-Caltech, Wikimedia Commons</a> (Public Domain)
+                    </p>
+                </div>
+                <p>Per millenni, l'umanità ha guardato il cielo notturno chiedendosi se fossimo soli nell'universo. Solo negli ultimi decenni abbiamo iniziato a trovare una risposta concreta: il cosmo pullula di pianeti che orbitano attorno a <a href="https://it.wikipedia.org/wiki/Stella" target="_blank" rel="noopener noreferrer">stelle</a> diverse dal nostro <a href="https://it.wikipedia.org/wiki/Sole" target="_blank" rel="noopener noreferrer">Sole</a>. Questi mondi lontani, chiamati <strong><a href="https://it.wikipedia.org/wiki/Pianeta_extrasolare" target="_blank" rel="noopener noreferrer">esopianeti</a></strong>, mostrano una diversità sorprendente, sfidando spesso le nostre teorie sulla <a href="https://it.wikipedia.org/wiki/Formazione_ed_evoluzione_del_Sistema_solare" target="_blank" rel="noopener noreferrer">formazione planetaria</a>.</p>
                  <p>La loro scoperta ha aperto una nuova era nell'<a href="https://it.wikipedia.org/wiki/Astronomia" target="_blank" rel="noopener noreferrer">astronomia</a>, permettendoci non solo di catalogare nuovi mondi, ma anche di studiarne le caratteristiche, le <a href="https://it.wikipedia.org/wiki/Atmosfera_planetaria" target="_blank" rel="noopener noreferrer">atmosfere</a> e, forse un giorno, di trovare segni di <a href="https://it.wikipedia.org/wiki/Vita_extraterrestre" target="_blank" rel="noopener noreferrer">vita extraterrestre</a>. Questo articolo vi guiderà attraverso le principali categorie di esopianeti conosciuti, i metodi ingegnosi usati per individuarli e le frontiere attuali della ricerca.</p>
             </section>
 
             <section class="content-section" id="tipologie">
                 <h2><i class="fa-solid fa-shapes"></i> Una Straordinaria Varietà: Tipi di Esopianeti</h2>
+
+                <div class="section-image-container">
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Exoplanet_types_%28artist%27s_impressions%29.jpg/1024px-Exoplanet_types_%28artist%27s_impressions%29.jpg"
+                          alt="Rappresentazione artistica di vari tipi di esopianeti: Super-Terra, Gigante Gassoso Caldo, Pianeta Oceanico, Mini-Nettuno"
+                          title="Vari tipi di esopianeti"
+                          class="section-image"
+                          style="max-width: 650px;">
+                     <p class="image-caption">
+                         Rappresentazioni artistiche di diversi tipi di esopianeti. Fonte:
+                         <a href="https://commons.wikimedia.org/wiki/File:Exoplanet_types_(artist%27s_impressions).jpg" target="_blank" rel="noopener noreferrer">NASA/JPL-Caltech, Wikimedia Commons</a> (Public Domain)
+                     </p>
+                 </div>
                 <p>Lontani dall'essere semplici copie del nostro Sistema Solare, gli esopianeti presentano un incredibile assortimento di dimensioni, masse e composizioni. Gli astronomi li classificano in diverse categorie principali per comprenderne meglio la natura e l'origine. Anche se i confini tra queste categorie non sono sempre netti, ci aiutano a dipingere un quadro della popolazione planetaria galattica. Ecco alcune delle tipologie più comuni:</p>
 
                 <div class="highlight-box-container">
@@ -430,7 +496,7 @@
                     </div>
                     <div class="highlight-box type-gas">
                         <h3><i class="fa-solid fa-globe"></i><a href="https://it.wikipedia.org/wiki/Giove_caldo" target="_blank" rel="noopener noreferrer">Hot Jupiters</a></h3>
-                        <p>Simili a <a href="https://it.wikipedia.org/wiki/Giove_(astronomia)" target="_blank" rel="noopener noreferrer">Giove</a> e <a href="https://it.wikipedia.org/wiki/Saturno_(astronomia)" target="_blank" rel="noopener noreferrer">Saturno</a>, questi pianeti sono composti principalmente da <a href="https://it.wikipedia.org/wiki/Idrogeno" target="_blank" rel="noopener noreferrer">idrogeno</a> ed <a href="https://it.wikipedia.org/wiki/Elio" target="_blank" rel="noopener noreferrer">elio</a>, con atmosfere immense e nessuna superficie solida definita. Una sottoclasse affascinante sono gli <strong>"<a href="https://it.wikipedia.org/wiki/Giove_caldo" target="_blank" rel="noopener noreferrer">Hot Jupiters</a>"</strong>: giganti gassosi che orbitano incredibilmente vicino alla loro stella, completando un'orbita in pochi giorni e raggiungendo temperature torride.</p>
+                         <p>Simili a <a href="https://it.wikipedia.org/wiki/Giove_(astronomia)" target="_blank" rel="noopener noreferrer">Giove</a> e <a href="https://it.wikipedia.org/wiki/Saturno_(astronomia)" target="_blank" rel="noopener noreferrer">Saturno</a>, questi pianeti sono composti principalmente da <a href="https://it.wikipedia.org/wiki/Idrogeno" target="_blank" rel="noopener noreferrer">idrogeno</a> ed <a href="https://it.wikipedia.org/wiki/Elio" target="_blank" rel="noopener noreferrer">elio</a>, con atmosfere immense e nessuna superficie solida definita. Una sottoclasse affascinante sono gli <strong>"<a href="https://it.wikipedia.org/wiki/Giove_caldo" target="_blank" rel="noopener noreferrer">Hot Jupiters</a>"</strong>: giganti gassosi che orbitano incredibilmente vicino alla loro stella, completando un'orbita in pochi giorni e raggiungendo temperature torride.</p>
                         <ul>
                             <li><strong>Composizione:</strong> Idrogeno, Elio</li>
                             <li><strong>Superficie:</strong> Assente</li>
@@ -444,28 +510,39 @@
                         <ul>
                             <li><strong>Copertura:</strong> Oceani globali profondi</li>
                             <li><strong>Abitabilità:</strong> Potenzialmente alta (se in zona abitabile)</li>
-                            <li><strong>Composizione:</strong> Ricchi d'acqua</li>
+                             <li><strong>Composizione:</strong> Ricchi d'acqua</li>
                         </ul>
                         <p class="examples">Esempi possibili: Alcuni pianeti nel sistema <a href="https://it.wikipedia.org/wiki/TRAPPIST-1" target="_blank" rel="noopener noreferrer">TRAPPIST-1</a> potrebbero avere grandi quantità d'acqua.</p>
-                     </div>
+                    </div>
                     </div>
                  <p>Esistono anche altre categorie, come i <strong><a href="https://it.wikipedia.org/wiki/Mininettuno" target="_blank" rel="noopener noreferrer">Mini-Nettuno</a></strong> (più piccoli di Nettuno ma più grandi delle Super-Terre, probabilmente con spesse atmosfere di idrogeno/elio sopra un nucleo roccioso/ghiacciato) e i <strong><a href="https://it.wikipedia.org/wiki/Pianeta_interstellare" target="_blank" rel="noopener noreferrer">pianeti "orfani"</a></strong> o interstellari, che vagano nello spazio senza orbitare attorno a una stella.</p>
             </section>
 
              <section class="content-section" id="metodi">
                 <h2><i class="fa-solid fa-search-location"></i> Come Scovare Mondi Lontani: Metodi di Rilevamento</h2>
-                <p>Individuare un pianeta delle dimensioni della Terra (o persino di Giove) accanto a una stella lontana milioni di miliardi di chilometri è una sfida tecnologica immensa. La luce diretta del pianeta è spesso miliardi di volte più debole di quella della sua stella. Per questo, gli astronomi hanno sviluppato <a href="https://it.wikipedia.org/wiki/Metodi_di_individuazione_dei_pianeti_extrasolari" target="_blank" rel="noopener noreferrer">metodi indiretti</a> incredibilmente sensibili, insieme a tecniche dirette sempre più potenti.</p>
+
+                 <div class="section-image-container">
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Detection_methods_exoplanets_it.png/800px-Detection_methods_exoplanets_it.png"
+                          alt="Diagramma che illustra i principali metodi di rilevamento degli esopianeti: velocità radiale, transito, imaging diretto, microlensing."
+                          title="Metodi di rilevamento esopianeti"
+                          class="section-image"
+                          style="max-width: 600px; background-color: #fff; padding: 10px; border-radius: 8px;"> <p class="image-caption">
+                         Illustrazione dei principali metodi per individuare pianeti extrasolari. Fonte:
+                         <a href="https://commons.wikimedia.org/wiki/File:Detection_methods_exoplanets_it.png" target="_blank" rel="noopener noreferrer">ESO/L. Calçada, Wikimedia Commons</a> (CC BY 4.0)
+                     </p>
+                 </div>
+                 <p>Individuare un pianeta delle dimensioni della Terra (o persino di Giove) accanto a una stella lontana milioni di miliardi di chilometri è una sfida tecnologica immensa. La luce diretta del pianeta è spesso miliardi di volte più debole di quella della sua stella. Per questo, gli astronomi hanno sviluppato <a href="https://it.wikipedia.org/wiki/Metodi_di_individuazione_dei_pianeti_extrasolari" target="_blank" rel="noopener noreferrer">metodi indiretti</a> incredibilmente sensibili, insieme a tecniche dirette sempre più potenti.</p>
 
                  <div class="highlight-box-container">
                     <div class="highlight-box method-transit">
                         <h3><i class="fa-solid fa-chart-line"></i> <a href="https://it.wikipedia.org/wiki/Metodi_di_individuazione_di_pianeti_extrasolari" target="_blank" rel="noopener noreferrer">Metodo dei transiti</a></h3>
-                        <p>Questo è il metodo di maggior successo finora. Consiste nell'osservare minime e periodiche diminuzioni della <a href="https://it.wikipedia.org/wiki/Luminosit%C3%A0_(astronomia)" target="_blank" rel="noopener noreferrer">luminosità</a> di una stella quando un pianeta passa davanti ad essa lungo la nostra <a href="https://it.wikipedia.org/wiki/Linea_di_vista" target="_blank" rel="noopener noreferrer">linea di vista</a>.</p>
+                         <p>Questo è il metodo di maggior successo finora. Consiste nell'osservare minime e periodiche diminuzioni della <a href="https://it.wikipedia.org/wiki/Luminosit%C3%A0_(astronomia)" target="_blank" rel="noopener noreferrer">luminosità</a> di una stella quando un pianeta passa davanti ad essa lungo la nostra <a href="https://it.wikipedia.org/wiki/Linea_di_vista" target="_blank" rel="noopener noreferrer">linea di vista</a>.</p>
                          <span class="percentage">Responsabile di ~70% delle scoperte</span>
                         <p class="examples">Missioni chiave: <a href="https://it.wikipedia.org/wiki/Missione_Kepler" target="_blank" rel="noopener noreferrer">Kepler</a>, <a href="https://it.wikipedia.org/wiki/Transiting_Exoplanet_Survey_Satellite" target="_blank" rel="noopener noreferrer">TESS</a>, <a href="https://it.wikipedia.org/wiki/COROT" target="_blank" rel="noopener noreferrer">CoRoT</a>. Pianeti scoperti: <a href="https://it.wikipedia.org/wiki/Kepler-22b" target="_blank" rel="noopener noreferrer">Kepler-22b</a>, <a href="https://it.wikipedia.org/wiki/TRAPPIST-1" target="_blank" rel="noopener noreferrer">TRAPPIST-1</a> (sistema).</p>
                     </div>
                      <div class="highlight-box method-radial">
                         <h3><i class="fa-solid fa-wave-square"></i> <a href="https://it.wikipedia.org/wiki/Metodi_di_individuazione_di_pianeti_extrasolari" target="_blank" rel="noopener noreferrer">Metodo della Velocità Radiale</a></h3>
-                        <p>Misura le piccole oscillazioni della stella causate dall'<a href="https://it.wikipedia.org/wiki/Forza_di_gravit%C3%A0" target="_blank" rel="noopener noreferrer">attrazione gravitazionale</a> del pianeta orbitante, rilevando lo <a href="https://it.wikipedia.org/wiki/Effetto_Doppler" target="_blank" rel="noopener noreferrer">spostamento Doppler</a> nella luce stellare.</p>
+                         <p>Misura le piccole oscillazioni della stella causate dall'<a href="https://it.wikipedia.org/wiki/Forza_di_gravit%C3%A0" target="_blank" rel="noopener noreferrer">attrazione gravitazionale</a> del pianeta orbitante, rilevando lo <a href="https://it.wikipedia.org/wiki/Effetto_Doppler" target="_blank" rel="noopener noreferrer">spostamento Doppler</a> nella luce stellare.</p>
                         <span class="percentage">Responsabile di ~20% delle scoperte</span>
                         <p class="examples">Strumenti chiave: <a href="https://it.wikipedia.org/wiki/HARPS" target="_blank" rel="noopener noreferrer">HARPS</a>, <a href="https://it.wikipedia.org/wiki/ESPRESSO" target="_blank" rel="noopener noreferrer">ESPRESSO</a>. Pianeti scoperti: <a href="https://it.wikipedia.org/wiki/51_Pegasi_b" target="_blank" rel="noopener noreferrer">51 Pegasi b</a>, <a href="https://it.wikipedia.org/wiki/Proxima_Centauri_b" target="_blank" rel="noopener noreferrer">Proxima Centauri b</a>.</p>
                     </div>
@@ -477,13 +554,13 @@
                          <span class="percentage">Responsabile di ~1-2% delle scoperte</span>
                         <p class="examples">Sistemi osservati: <a href="https://it.wikipedia.org/wiki/HR_8799" target="_blank" rel="noopener noreferrer">HR 8799</a>, <a href="https://it.wikipedia.org/wiki/Beta_Pictoris_b" target="_blank" rel="noopener noreferrer">Beta Pictoris b</a>.</p>
                     </div>
-                     <div class="highlight-box method-micro">
+                      <div class="highlight-box method-micro">
                         <h3><i class="fa-solid fa-magnifying-glass"></i> <a href="https://it.wikipedia.org/wiki/Metodi_di_individuazione_di_pianeti_extrasolari" target="_blank" rel="noopener noreferrer">Microlensing Gravitazionale</a></h3>
                         <p>Sfrutta l'effetto "<a href="https://it.wikipedia.org/wiki/Lente_gravitazionale" target="_blank" rel="noopener noreferrer">lente</a>" gravitazionale previsto da <a href="https://it.wikipedia.org/wiki/Albert_Einstein" target="_blank" rel="noopener noreferrer">Einstein</a> quando una stella (con pianeta) passa davanti a una stella più distante, amplificandone la luce.</p>
                          <span class="percentage">Responsabile di ~1-2% delle scoperte</span>
                         <p class="examples">Pianeti scoperti: <a href="https://it.wikipedia.org/wiki/OGLE-2005-BLG-390Lb" target="_blank" rel="noopener noreferrer">OGLE-2005-BLG-390Lb</a>.</p>
                     </div>
-                 </div>
+            </div>
             </section>
 
              <section class="content-section" id="transit-deep-dive">
@@ -492,41 +569,63 @@
                 <p>L'entità del calo di luminosità dipende dal rapporto tra le dimensioni del pianeta e quelle della stella: pianeti più grandi bloccano più luce. La durata del transito ci dà informazioni sulla velocità orbitale, mentre il tempo che intercorre tra transiti successivi rivela il periodo orbitale del pianeta. È il metodo che ha permesso la scoperta della maggior parte degli esopianeti noti, grazie a missioni spaziali come Kepler e TESS.</p>
 
                 <p>L'entità del calo di luminosità dipende dal rapporto tra le dimensioni del pianeta e quelle della stella... Modifica i parametri qui sotto per vedere come cambia la curva di luce!</p>
-
-             </section>
+                </section>
 
 
                  <div class="canvas-container">
-                     <div class="controls">
+                      <div class="controls">
                         <div class="control-group">
                             <label for="planetRadiusSlider">Raggio Pianeta (pixel): <span id="radiusValue">15</span></label>
-                            <input type="range" id="planetRadiusSlider" min="1" max="50" step="1" value="15" title="Modifica il raggio del pianeta">
+                             <input type="range" id="planetRadiusSlider" min="1" max="50" step="1" value="15" title="Modifica il raggio del pianeta">
                         </div>
                         <div class="control-group">
                             <label for="planetOffsetYSlider">Offset Verticale (pixel): <span id="offsetValue">24</span></label>
-                            <input type="range" id="planetOffsetYSlider" min="-75" max="75" step="1" value="24" title="Modifica la posizione verticale della traiettoria del pianeta">
+                             <input type="range" id="planetOffsetYSlider" min="-75" max="75" step="1" value="24" title="Modifica la posizione verticale della traiettoria del pianeta">
                         </div>
                     </div>
-                     <canvas id="transitCanvas" width="600" height="350">Il tuo browser non supporta l'elemento Canvas.</canvas>
+                  <canvas id="transitCanvas" width="600" height="350">Il tuo browser non supporta l'elemento Canvas.</canvas>
                      <p class="animation-explanation">L'animazione sopra mostra una stella (gialla) e un pianeta (scuro) che le passa davanti. Il grafico sottostante (curva di luce) mostra come la luminosità della stella diminuisce temporaneamente durante il passaggio (transito) del pianeta.</p>
                 </div>
 
             <section class="content-section" id="atmosfere">
                 <h2><i class="fa-solid fa-cloud"></i> Dentro le Atmosfere Aliene</h2>
+
+                <div class="section-image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Artist_impression_of_exoplanet_WASP-121b_revealing_stratosphere.jpg/1024px-Artist_impression_of_exoplanet_WASP-121b_revealing_stratosphere.jpg"
+                         alt="Rappresentazione artistica dell'esopianeta WASP-121b che mostra la presenza di una stratosfera."
+                         title="Studio dell'atmosfera di WASP-121b"
+                         class="section-image"
+                         style="max-width: 600px;">
+                    <p class="image-caption">
+                        Rappresentazione artistica dell'esopianeta WASP-121b con la sua stratosfera ricca d'acqua. Fonte:
+                        <a href="https://commons.wikimedia.org/wiki/File:Artist_impression_of_exoplanet_WASP-121b_revealing_stratosphere.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA, and G. Bacon (STScI), Wikimedia Commons</a> (Public Domain)
+                    </p>
+                </div>
                 <p>Una delle frontiere più eccitanti dell'<a href="https://it.wikipedia.org/wiki/Esoplanetologia" target="_blank" rel="noopener noreferrer">esoplanetologia</a> è lo studio delle <a href="https://it.wikipedia.org/wiki/Atmosfera_planetaria" target="_blank" rel="noopener noreferrer">atmosfere</a> di questi mondi lontani. Analizzando la luce della stella che filtra attraverso l'atmosfera del pianeta durante un transito (<a href="https://it.wikipedia.org/wiki/Spettroscopia_astronomica" target="_blank" rel="noopener noreferrer">spettroscopia</a> di trasmissione) o la luce emessa/riflessa direttamente dal pianeta (spettroscopia di emissione/riflessione), gli astronomi possono iniziare a decifrarne la composizione chimica e le condizioni fisiche.</p>
                 <p>Questo ci permette di cercare ingredienti familiari come <strong><a href="https://it.wikipedia.org/wiki/Acqua" target="_blank" rel="noopener noreferrer">acqua (H₂O)</a>, <a href="https://it.wikipedia.org/wiki/Metano" target="_blank" rel="noopener noreferrer">metano (CH₄)</a>, <a href="https://it.wikipedia.org/wiki/Anidride_carbonica" target="_blank" rel="noopener noreferrer">anidride carbonica (CO₂)</a></strong>, ma anche elementi più esotici. Le atmosfere rivelano anche indizi sul <a href="https://it.wikipedia.org/wiki/Clima" target="_blank" rel="noopener noreferrer">clima</a> del pianeta:</p>
                 <ul>
                     <li><strong>Climi Estremi:</strong> Molti "Hot Jupiters" mostrano temperature superficiali che superano i 1000°C o persino i 2500°C (come <a href="https://it.wikipedia.org/wiki/WASP-12b" target="_blank" rel="noopener noreferrer">WASP-12b</a>), con venti potentissimi e forse nubi di <a href="https://it.wikipedia.org/wiki/Silicato" target="_blank" rel="noopener noreferrer">silicati</a> o <a href="https://it.wikipedia.org/wiki/Metallo" target="_blank" rel="noopener noreferrer">metalli</a> vaporizzati.</li>
-                    <li><strong><a href="https://it.wikipedia.org/wiki/Pianeta_di_lava" target="_blank" rel="noopener noreferrer">Pianeti di Lava</a>:</strong> Super-Terre molto vicine alla loro stella, come <a href="https://it.wikipedia.org/wiki/CoRoT-7b" target="_blank" rel="noopener noreferrer">CoRoT-7b</a> o <a href="https://it.wikipedia.org/wiki/55_Cancri_e" target="_blank" rel="noopener noreferrer">55 Cancri e</a>, potrebbero avere superfici permanentemente fuse.</li>
+                     <li><strong><a href="https://it.wikipedia.org/wiki/Pianeta_di_lava" target="_blank" rel="noopener noreferrer">Pianeti di Lava</a>:</strong> Super-Terre molto vicine alla loro stella, come <a href="https://it.wikipedia.org/wiki/CoRoT-7b" target="_blank" rel="noopener noreferrer">CoRoT-7b</a> o <a href="https://it.wikipedia.org/wiki/55_Cancri_e" target="_blank" rel="noopener noreferrer">55 Cancri e</a>, potrebbero avere superfici permanentemente fuse.</li>
                     <li><strong><a href="https://it.wikipedia.org/wiki/Effetto_serra" target="_blank" rel="noopener noreferrer">Effetto Serra</a>:</strong> Come su <a href="https://it.wikipedia.org/wiki/Venere_(astronomia)" target="_blank" rel="noopener noreferrer">Venere</a>, atmosfere dense e ricche di gas serra possono innalzare drasticamente le temperature superficiali anche su pianeti rocciosi.</li>
-                </ul>
+            </ul>
                  <p>La ricerca si concentra anche sulle <strong><a href="https://it.wikipedia.org/wiki/Biofirma" target="_blank" rel="noopener noreferrer">biosignature</a></strong>: gas o combinazioni di gas (come <a href="https://it.wikipedia.org/wiki/Ossigeno" target="_blank" rel="noopener noreferrer">ossigeno O₂</a> e metano CH₄ presenti contemporaneamente) che sulla Terra sono prodotti prevalentemente da <a href="https://it.wikipedia.org/wiki/Biologia" target="_blank" rel="noopener noreferrer">processi biologici</a>. Rilevarli su un esopianeta sarebbe un'indicazione potenzialmente rivoluzionaria, anche se l'interpretazione è complessa e richiede cautela per escludere processi <a href="https://it.wikipedia.org/wiki/Geologia" target="_blank" rel="noopener noreferrer">geologici</a> o <a href="https://it.wikipedia.org/wiki/Fotochimica" target="_blank" rel="noopener noreferrer">fotochimici</a> non biologici.</p>
                  <p>Il <strong><a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_James_Webb" target="_blank" rel="noopener noreferrer">Telescopio Spaziale James Webb (JWST)</a></strong> sta attualmente fornendo dati spettacolari sulle atmosfere di numerosi esopianeti, aprendo una nuova finestra sulla loro chimica e fisica.</p>
              </section>
 
-            <section class="content-section" id="abitabilita">
+             <section class="content-section" id="abitabilita">
                  <h2><i class="fa-solid fa-map-marker-alt"></i> La Caccia all'<a href="https://it.wikipedia.org/wiki/Abitabilit%C3%A0_planetaria" target="_blank" rel="noopener noreferrer">Abitabilità</a>: Zone "Goldilocks" e Oltre</h2>
-                <p>Uno degli obiettivi primari della ricerca esoplanetaria è trovare mondi potenzialmente abitabili, cioè capaci di ospitare vita come la conosciamo. Il concetto guida è la <strong>"<a href="https://it.wikipedia.org/wiki/Zona_abitabile" target="_blank" rel="noopener noreferrer">Zona Abitabile</a>" (HZ)</strong>, spesso chiamata anche "Zona Goldilocks". Si tratta di quella regione orbitale attorno a una stella dove le temperature superficiali di un pianeta roccioso con un'atmosfera adatta potrebbero permettere all'acqua di esistere allo <a href="https://it.wikipedia.org/wiki/Stato_liquido" target="_blank" rel="noopener noreferrer">stato liquido</a>, un ingrediente considerato essenziale per la vita.</p>
+
+                 <div class="section-image-container">
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Habitable_zone-it.svg/800px-Habitable_zone-it.svg.png"
+                          alt="Diagramma che illustra la zona abitabile attorno a stelle di diversa temperatura (più calda, simile al Sole, più fredda)."
+                          title="Zona abitabile circumstellare"
+                          class="section-image"
+                          style="max-width: 550px; background-color: #fff; padding: 10px; border-radius: 8px;"> <p class="image-caption">
+                         La Zona Abitabile varia a seconda del tipo di stella. Fonte:
+                         <a href="https://commons.wikimedia.org/wiki/File:Habitable_zone-it.svg" target="_blank" rel="noopener noreferrer">Petr Kratochvil (modificato), Wikimedia Commons</a> (CC0 1.0)
+                     </p>
+                 </div>
+                 <p>Uno degli obiettivi primari della ricerca esoplanetaria è trovare mondi potenzialmente abitabili, cioè capaci di ospitare vita come la conosciamo. Il concetto guida è la <strong>"<a href="https://it.wikipedia.org/wiki/Zona_abitabile" target="_blank" rel="noopener noreferrer">Zona Abitabile</a>" (HZ)</strong>, spesso chiamata anche "Zona Goldilocks". Si tratta di quella regione orbitale attorno a una stella dove le temperature superficiali di un pianeta roccioso con un'atmosfera adatta potrebbero permettere all'acqua di esistere allo <a href="https://it.wikipedia.org/wiki/Stato_liquido" target="_blank" rel="noopener noreferrer">stato liquido</a>, un ingrediente considerato essenziale per la vita.</p>
                 <div class="habitable-zone-visual">Zona Fredda --- ZONA ABITABILE --- Zona Calda</div>
                 <p>La posizione e l'estensione della Zona Abitabile dipendono fortemente dal tipo di stella: è più vicina e stretta per le stelle <a href="https://it.wikipedia.org/wiki/Nana_rossa" target="_blank" rel="noopener noreferrer">nane rosse</a> (più fredde e piccole del Sole) e più lontana e ampia per le stelle più calde e massicce. Tuttavia, trovarsi nella HZ non garantisce l'abitabilità:</p>
                 <ul>
@@ -546,6 +645,18 @@
 
             <section class="content-section" id="statistiche">
                  <h2><i class="fa-solid fa-chart-pie"></i> L'Esplosione delle Scoperte: Numeri e Missioni</h2>
+
+                 <div class="section-image-container">
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Confirmed_exoplanets_plot_by_discovery_method_and_year.png/1024px-Confirmed_exoplanets_plot_by_discovery_method_and_year.png"
+                          alt="Grafico che mostra il numero cumulativo di esopianeti confermati scoperti per anno, suddivisi per metodo di rilevamento."
+                          title="Numero di esopianeti scoperti nel tempo"
+                          class="section-image"
+                          style="max-width: 700px;">
+                     <p class="image-caption">
+                         Numero cumulativo di esopianeti confermati, per anno e metodo di scoperta (aggiornato a inizio 2024). Fonte:
+                         <a href="https://commons.wikimedia.org/wiki/File:Confirmed_exoplanets_plot_by_discovery_method_and_year.png" target="_blank" rel="noopener noreferrer">NASA Exoplanet Archive, Konkoly Observatory/András Pál, Wikimedia Commons</a> (CC BY-SA 4.0)
+                     </p>
+                 </div>
                  <p>Questo campo di ricerca è uno dei più dinamici dell'astronomia moderna. Dalla prima, storica scoperta di <strong><a href="https://it.wikipedia.org/wiki/51_Pegasi_b" target="_blank" rel="noopener noreferrer">51 Pegasi b</a> nel 1995</strong>, il numero di mondi confermati al di fuori del nostro Sistema Solare è cresciuto in modo esponenziale. Ad oggi (Marzo 2025), abbiamo superato la soglia dei <strong>5.600 esopianeti confermati</strong>, e ci sono oltre <strong>9.000 candidati</strong> in attesa di verifica, principalmente dai dati delle missioni spaziali dedicate.</p>
                  <p>Questa rivoluzione è stata guidata da strumenti e missioni sempre più sofisticati:</p>
                  <ul>
@@ -559,31 +670,36 @@
                  <h3>Momenti Chiave nella Scoperta Esoplanetaria:</h3>
                  <div class="timeline">
                      <div class="timeline-item">
-                        <strong>1992:</strong> Primi pianeti scoperti attorno alla <a href="https://it.wikipedia.org/wiki/Pulsar" target="_blank" rel="noopener noreferrer">pulsar</a> <a href="https://it.wikipedia.org/wiki/PSR_B1257%2B12" target="_blank" rel="noopener noreferrer">PSR B1257+12</a>.
-                     </div>
+                        <strong>1992:</strong> Primi pianeti scoperti attorno alla <a href="https://it.wikipedia.org/wiki/Pulsar" target="_blank" rel="noopener noreferrer">pulsar</a> <a href="https://it.wikipedia.org/wiki/PSR_B1257%2B12" target="_blank" rel="noopener noreferrer">PSR B1257+12</a>. </div>
                      <div class="timeline-item">
-                         <strong>1995:</strong> <a href="https://it.wikipedia.org/wiki/51_Pegasi_b" target="_blank" rel="noopener noreferrer">51 Pegasi b</a> - Rivoluziona il campo con la prima scoperta attorno a una stella di tipo solare.
-                     </div>
+                         <strong>1995:</strong> <a href="https://it.wikipedia.org/wiki/51_Pegasi_b" target="_blank" rel="noopener noreferrer">51 Pegasi b</a> - Rivoluziona il campo con la prima scoperta attorno a una stella di tipo solare. </div>
                      <div class="timeline-item">
-                         <strong>1999:</strong> <a href="https://it.wikipedia.org/wiki/HD_209458_b" target="_blank" rel="noopener noreferrer">HD 209458 b</a> - Primo pianeta osservato mentre transita davanti alla sua stella.
-                     </div>
+                         <strong>1999:</strong> <a href="https://it.wikipedia.org/wiki/HD_209458_b" target="_blank" rel="noopener noreferrer">HD 209458 b</a> - Primo pianeta osservato mentre transita davanti alla sua stella. </div>
                      <div class="timeline-item">
-                         <strong>2009:</strong> Lancio della missione <a href="https://it.wikipedia.org/wiki/Missione_Kepler" target="_blank" rel="noopener noreferrer">Kepler</a> - Inizia la "caccia grossa" statistica.
-                     </div>
+                         <strong>2009:</strong> Lancio della missione <a href="https://it.wikipedia.org/wiki/Missione_Kepler" target="_blank" rel="noopener noreferrer">Kepler</a> - Inizia la "caccia grossa" statistica. </div>
                      <div class="timeline-item">
-                         <strong>2016:</strong> Annuncio di <a href="https://it.wikipedia.org/wiki/Proxima_Centauri_b" target="_blank" rel="noopener noreferrer">Proxima Centauri b</a> - Il pianeta potenzialmente abitabile più vicino.
-                     </div>
+                         <strong>2016:</strong> Annuncio di <a href="https://it.wikipedia.org/wiki/Proxima_Centauri_b" target="_blank" rel="noopener noreferrer">Proxima Centauri b</a> - Il pianeta potenzialmente abitabile più vicino. </div>
                       <div class="timeline-item">
-                         <strong>2018:</strong> Lancio della missione <a href="https://it.wikipedia.org/wiki/Transiting_Exoplanet_Survey_Satellite" target="_blank" rel="noopener noreferrer">TESS</a> - Il successore "all-sky" di Kepler.
-                     </div>
+                         <strong>2018:</strong> Lancio della missione <a href="https://it.wikipedia.org/wiki/Transiting_Exoplanet_Survey_Satellite" target="_blank" rel="noopener noreferrer">TESS</a> - Il successore "all-sky" di Kepler. </div>
                      <div class="timeline-item">
-                         <strong>2021/2022:</strong> Prime osservazioni di <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_James_Webb" target="_blank" rel="noopener noreferrer">JWST</a> - Inizia una nuova era nello studio delle atmosfere.
-                     </div>
+                         <strong>2021/2022:</strong> Prime osservazioni di <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_James_Webb" target="_blank" rel="noopener noreferrer">JWST</a> - Inizia una nuova era nello studio delle atmosfere. </div>
                  </div>
             </section>
 
              <section class="content-section" id="tabella">
                 <h2><i class="fa-solid fa-list-ul"></i> Galleria di Mondi Notevoli: Una Tabella Riassuntiva</h2>
+
+                <div class="section-image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Artist%27s_impression_of_the_TRAPPIST-1_system.jpg/1024px-Artist%27s_impression_of_the_TRAPPIST-1_system.jpg"
+                         alt="Rappresentazione artistica del sistema planetario TRAPPIST-1, con sette pianeti di dimensioni terrestri."
+                         title="Sistema planetario TRAPPIST-1"
+                         class="section-image"
+                         style="max-width: 650px;">
+                    <p class="image-caption">
+                        Rappresentazione artistica del sistema TRAPPIST-1. Fonte:
+                        <a href="https://commons.wikimedia.org/wiki/File:Artist%27s_impression_of_the_TRAPPIST-1_system.jpg" target="_blank" rel="noopener noreferrer">NASA/JPL-Caltech, Wikimedia Commons</a> (Public Domain)
+                    </p>
+                </div>
                 <p>Per dare un'idea concreta della diversità degli esopianeti scoperti e dei metodi utilizzati, la tabella seguente riassume le caratteristiche di alcuni dei mondi più famosi o significativi studiati finora. Ogni riga rappresenta un esempio che illustra le categorie e le tecniche discusse in questo articolo.</p>
 
                 <div class="table-container">
@@ -596,14 +712,14 @@
                                 <th>Strumento/Missione Principale</th>
                                 <th>Note Salienti</th>
                             </tr>
-                         </thead>
+                          </thead>
                         <tbody>
                             <tr><td><a href="https://it.wikipedia.org/wiki/51_Pegasi_b" target="_blank" rel="noopener noreferrer">51 Pegasi b</a></td><td>Hot Jupiter</td><td>Velocità Radiale</td><td><a href="https://it.wikipedia.org/wiki/ELODIE" target="_blank" rel="noopener noreferrer">ELODIE</a></td><td>Primo esopianeta scoperto attorno a una stella simile al Sole (1995).</td></tr>
-                             <tr><td><a href="https://it.wikipedia.org/wiki/HD_209458_b" target="_blank" rel="noopener noreferrer">HD 209458 b ("Osiris")</a></td><td>Hot Jupiter</td><td>Transito + Vel. Radiale</td><td>STARE, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_Hubble" target="_blank" rel="noopener noreferrer">HST</a>, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_Spitzer" target="_blank" rel="noopener noreferrer">Spitzer</a></td><td>Primo transito osservato; prima atmosfera studiata (sodio, idrogeno in fuga).</td></tr>
+                              <tr><td><a href="https://it.wikipedia.org/wiki/HD_209458_b" target="_blank" rel="noopener noreferrer">HD 209458 b ("Osiris")</a></td><td>Hot Jupiter</td><td>Transito + Vel. Radiale</td><td>STARE, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_Hubble" target="_blank" rel="noopener noreferrer">HST</a>, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_Spitzer" target="_blank" rel="noopener noreferrer">Spitzer</a></td><td>Primo transito osservato; prima atmosfera studiata (sodio, idrogeno in fuga).</td></tr>
                             <tr><td><a href="https://it.wikipedia.org/wiki/Kepler-22b" target="_blank" rel="noopener noreferrer">Kepler-22b</a></td><td>Super-Terra / Mini-Nettuno</td><td>Transito</td><td><a href="https://it.wikipedia.org/wiki/Missione_Kepler" target="_blank" rel="noopener noreferrer">Kepler</a></td><td>Uno dei primi pianeti scoperti da Kepler nella Zona Abitabile di una stella simile al Sole.</td></tr>
                             <tr><td><a href="https://it.wikipedia.org/wiki/Gliese_581" target="_blank" rel="noopener noreferrer">Gliese 581</a> (sistema)</td><td>Super-Terre / Nettuniani</td><td>Velocità Radiale</td><td><a href="https://it.wikipedia.org/wiki/HARPS" target="_blank" rel="noopener noreferrer">HARPS</a></td><td>Famoso sistema multiplo attorno a una nana rossa; l'abitabilità di alcuni pianeti (e, g) è discussa.</td></tr>
                             <tr><td><a href="https://it.wikipedia.org/wiki/Proxima_Centauri_b" target="_blank" rel="noopener noreferrer">Proxima Centauri b</a></td><td>Simil-Terrestre (Massa min ~1.3 M⊕)</td><td>Velocità Radiale</td><td><a href="https://it.wikipedia.org/wiki/HARPS" target="_blank" rel="noopener noreferrer">HARPS</a>, <a href="https://it.wikipedia.org/wiki/ESPRESSO" target="_blank" rel="noopener noreferrer">ESPRESSO</a></td><td>Il pianeta potenzialmente abitabile più vicino a noi (4.2 anni luce), orbita una nana rossa attiva.</td></tr>
-                            <tr><td><a href="https://it.wikipedia.org/wiki/CoRoT-7b" target="_blank" rel="noopener noreferrer">CoRoT-7b</a></td><td>Super-Terra (Pianeta di Lava)</td><td>Transito</td><td><a href="https://it.wikipedia.org/wiki/COROT" target="_blank" rel="noopener noreferrer">CoRoT</a></td><td>Considerato il primo pianeta roccioso confermato (diametro ~1.6 D⊕), estremamente vicino alla sua stella.</td></tr>
+                             <tr><td><a href="https://it.wikipedia.org/wiki/CoRoT-7b" target="_blank" rel="noopener noreferrer">CoRoT-7b</a></td><td>Super-Terra (Pianeta di Lava)</td><td>Transito</td><td><a href="https://it.wikipedia.org/wiki/COROT" target="_blank" rel="noopener noreferrer">CoRoT</a></td><td>Considerato il primo pianeta roccioso confermato (diametro ~1.6 D⊕), estremamente vicino alla sua stella.</td></tr>
                             <tr><td><a href="https://it.wikipedia.org/wiki/55_Cancri_e" target="_blank" rel="noopener noreferrer">55 Cancri e</a></td><td>Super-Terra (Diamante/Lava?)</td><td>Vel. Radiale + Transito</td><td>Varie, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_Spitzer" target="_blank" rel="noopener noreferrer">Spitzer</a>, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_James_Webb" target="_blank" rel="noopener noreferrer">JWST</a></td><td>Densissimo, caldissimo, orbita in meno di 18 ore. Composizione interna dibattuta (forse ricco di carbonio).</td></tr>
                             <tr><td><a href="https://it.wikipedia.org/wiki/TRAPPIST-1" target="_blank" rel="noopener noreferrer">TRAPPIST-1</a> (sistema)</td><td>Pianeti Terrestri (7)</td><td>Transito</td><td>TRAPPIST, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_Spitzer" target="_blank" rel="noopener noreferrer">Spitzer</a>, <a href="https://it.wikipedia.org/wiki/Missione_Kepler#Missione_K2" target="_blank" rel="noopener noreferrer">K2</a>, <a href="https://it.wikipedia.org/wiki/Telescopio_spaziale_James_Webb" target="_blank" rel="noopener noreferrer">JWST</a></td><td>Sistema iconico attorno a una nana rossa ultra-fredda, con 3-4 pianeti nella Zona Abitabile. Obiettivo primario per JWST.</td></tr>
                             <tr><td><a href="https://it.wikipedia.org/wiki/HR_8799" target="_blank" rel="noopener noreferrer">HR 8799</a> (sistema)</td><td>Giganti Gassosi (4)</td><td>Imaging Diretto</td><td><a href="https://it.wikipedia.org/wiki/Osservatorio_W._M._Keck" target="_blank" rel="noopener noreferrer">Keck</a>, <a href="https://it.wikipedia.org/wiki/Osservatorio_Gemini" target="_blank" rel="noopener noreferrer">Gemini</a>, <a href="https://it.wikipedia.org/wiki/Very_Large_Telescope" target="_blank" rel="noopener noreferrer">VLT</a></td><td>Primo sistema multiplo di pianeti ad essere stato fotografato direttamente attorno a una stella giovane.</td></tr>
@@ -618,7 +734,7 @@
 
         <footer class="page-footer">
             <p>Pagina creata il 27 Marzo 2025. Dati basati su fonti astronomiche aggiornate (es. <a href="https://exoplanetarchive.ipac.caltech.edu/" target="_blank" rel="noopener noreferrer">NASA Exoplanet Archive</a>, <a href="http://exoplanet.eu/" target="_blank" rel="noopener noreferrer">Enciclopedia dei Pianeti Extrasolari</a>).</p>
-            <p>Immagine di sfondo via <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>.</p>
+            <p>Immagine di sfondo via <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>. Immagini sezioni e copertina via <a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> (vedi didascalie per dettagli).</p>
         </footer>
 
     </div>
@@ -628,7 +744,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('transitCanvas');
         if (canvas && canvas.getContext) {
-            const ctx = canvas.getContext('2d');
+             const ctx = canvas.getContext('2d');
             const canvasWidth = canvas.width;
             const canvasHeight = canvas.height;
 
@@ -701,7 +817,7 @@
                 // Aggiorna i limiti dello slider offset se il raggio cambia
                 offsetYSlider.min = -(starRadius + planetRadius + 5);
                 offsetYSlider.max = (starRadius + planetRadius + 5);
-             });
+            });
 
             offsetYSlider.addEventListener('input', (e) => {
                 planetYOffset = parseFloat(e.target.value);
@@ -709,20 +825,20 @@
                 // Aggiorna la posizione verticale del pianeta istantaneamente
                 planetY = starY + planetYOffset;
             });
-            // --- Funzioni Ausiliarie (smoothstep come prima) ---
+             // --- Funzioni Ausiliarie (smoothstep come prima) ---
              function smoothstep(edge0, edge1, x) { /* ... codice identico ... */
                 x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
-                return x * x * (3 - 2 * x);
+                 return x * x * (3 - 2 * x);
              }
 
             // --- Funzioni di Disegno (drawStar come prima) ---
              function drawStar() { /* ... codice identico ... */
                 ctx.shadowBlur = 15;
-                ctx.shadowColor = starGlowColor;
+                 ctx.shadowColor = starGlowColor;
                 ctx.fillStyle = starColor; ctx.beginPath();
                 ctx.arc(starX, starY, starRadius, 0, Math.PI * 2); ctx.fill();
                 ctx.shadowBlur = 0;
-                ctx.fillStyle = starColor; ctx.beginPath();
+                 ctx.fillStyle = starColor; ctx.beginPath();
                 ctx.arc(starX, starY, starRadius * 0.98, 0, Math.PI * 2); ctx.fill();
              }
 
@@ -858,7 +974,7 @@
                      // per assicurare che il prossimo ciclo usi l'ultimo valore impostato
                      // planetYOffset = parseFloat(offsetYSlider.value); // Già aggiornato dall'event listener
                      // planetY = starY + planetYOffset;
-                 }
+                }
 
                 // Aggiorna dati (se è il frame giusto)
                 if (frameCount % samplingInterval === 0) {
