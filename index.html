@@ -553,7 +553,7 @@
         </footer>
 
     </div>
-    <script>
+  <script>
     // Attendere che il DOM sia completamente caricato
     document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('transitCanvas');
@@ -571,15 +571,15 @@
 
             const planetRadius = 15;
             const planetColor = '#222';
-            const planetStartX = -planetRadius * 3; // Posizione iniziale
+            const planetStartX = -planetRadius * 3;
             let planetX = planetStartX;
             const planetY = starY;
             const planetSpeed = 0.7;
-            // Definisce la lunghezza totale del percorso del pianeta che verrà mappata sul grafico
             const totalPathLength = canvasWidth + 6 * planetRadius;
 
             // --- Parametri Grafico ---
-            const graphMargin = { top: 20, right: 20, bottom: 15, left: 25 }; // Ridotti margini bottom/left senza label
+            // Aumenta leggermente margini per fare spazio alle label
+            const graphMargin = { top: 20, right: 20, bottom: 40, left: 50 };
             const graphY = starY + starRadius + 40;
             const graphHeight = canvasHeight - graphY - graphMargin.bottom;
             const graphWidth = canvasWidth - graphMargin.left - graphMargin.right;
@@ -592,19 +592,19 @@
             const graphLineColor = '#4ecdc4';
             const graphPointColor = 'rgba(200, 200, 200, 0.7)';
             const graphAxisColor = '#aaa';
-            // const graphLabelColor = '#ccc'; // Non più necessario
+            const graphLabelColor = '#ccc'; // Colore per le etichette ripristinato
 
             // --- Dati Curva di Luce & Animazione ---
-            let lightCurveData = []; // Array di { time: mapped_time, value: noisy_brightness, trueValue: ideal_brightness }
+            let lightCurveData = [];
             let animationFrameId;
             let frameCount = 0;
-            const samplingInterval = 4; // Mantieni campionamento ridotto
+            const samplingInterval = 4;
 
             // --- Funzioni Ausiliarie (smoothstep come prima) ---
             function smoothstep(edge0, edge1, x) { /* ... codice identico ... */
                 x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
                 return x * x * (3 - 2 * x);
-             }
+            }
 
             // --- Funzioni di Disegno (drawStar, drawPlanet come prima) ---
             function drawStar() { /* ... codice identico ... */
@@ -613,38 +613,35 @@
                 ctx.arc(starX, starY, starRadius, 0, Math.PI * 2); ctx.fill();
                 ctx.shadowBlur = 0; ctx.fillStyle = starColor; ctx.beginPath();
                 ctx.arc(starX, starY, starRadius * 0.98, 0, Math.PI * 2); ctx.fill();
-            }
+             }
             function drawPlanet() { /* ... codice identico ... */
                 ctx.fillStyle = planetColor; ctx.beginPath();
                 ctx.arc(planetX, planetY, planetRadius, 0, Math.PI * 2); ctx.fill();
-            }
+             }
 
             // --- Calcolo Luminosità Teorica (come prima) ---
-            // Questa funzione definisce GIA' il timing corretto del transito basato sulla geometria
             function calculateTrueBrightness(currentPlanetX) { /* ... codice identico ... */
                 const distance = Math.abs(currentPlanetX - starX);
                 const r_s = starRadius; const r_p = planetRadius;
-                const transitStartEdge = r_s + r_p; // T1 & T4
-                const transitFullStart = r_s - r_p; // T2 & T3
-                if (distance >= transitStartEdge) return maxBrightness; // Fuori transito
-                if (distance <= transitFullStart) return minBrightness; // Transito completo
-                // Fase parziale (T1->T2 o T3->T4)
+                const transitStartEdge = r_s + r_p; const transitFullStart = r_s - r_p;
+                if (distance >= transitStartEdge) return maxBrightness;
+                if (distance <= transitFullStart) return minBrightness;
                 const transitionFactor = 1.0 - smoothstep(transitFullStart, transitStartEdge, distance);
                 return maxBrightness - transitionFactor * transitDepth;
              }
 
-            // --- Disegno Grafico (CON CLIPPING e SENZA ETICHETTE) ---
-            function drawGraph(currentScanX_onGraph) { // Riceve la posizione X della linea di scansione SUL GRAFICO
+            // --- Disegno Grafico (CON CLIPPING e CON ETICHETTE) ---
+            function drawGraph(currentScanX_onGraph) {
                 ctx.save(); // Salva stato contesto generale
                 ctx.translate(graphX, graphY); // Sposta origine in alto a sx area grafico
 
-                // 1. Disegna Assi (SENZA ETICHETTE)
+                // 1. Disegna Assi
                 ctx.strokeStyle = graphAxisColor; ctx.lineWidth = 1; ctx.beginPath();
                 ctx.moveTo(0, 0); ctx.lineTo(0, graphHeight); // Asse Y
                 ctx.lineTo(graphWidth, graphHeight); // Asse X
                 ctx.stroke();
 
-                // 2. Scala Y (come prima)
+                // 2. Scala Y
                 const yAxisMin = minBrightness - transitDepth * 0.3;
                 const yAxisMax = maxBrightness + transitDepth * 0.3;
                 const yAxisRange = yAxisMax - yAxisMin;
@@ -652,101 +649,89 @@
                 // --- Applicazione Clipping ---
                 ctx.save(); // Salva stato prima del clip
                 ctx.beginPath();
-                // Crea un rettangolo di clipping da sinistra fino alla posizione della linea di scansione
-                ctx.rect(0, 0, currentScanX_onGraph, graphHeight);
-                ctx.clip(); // Attiva il clipping: tutto ciò che verrà disegnato dopo sarà visibile solo dentro quest'area
+                ctx.rect(0, 0, currentScanX_onGraph, graphHeight); // Area di clipping
+                ctx.clip(); // Attiva clipping
 
-                // --- Disegna elementi che devono essere clippati ---
-
-                // 3. Disegna Punti Dati (Logica di mappatura ripristinata)
+                // --- Disegna elementi clippati ---
+                // 3. Disegna Punti Dati
                 ctx.fillStyle = graphPointColor; ctx.globalAlpha = 0.8;
-                lightCurveData.forEach(point => {
-                    // Mappa il 'time' memorizzato (0 -> totalPathLength) alla coordinata x del grafico (0 -> graphWidth)
+                lightCurveData.forEach(point => { /* ... codice identico a prima ... */
                     const x = (point.time / totalPathLength) * graphWidth;
                     const y = graphHeight * (1 - (point.value - yAxisMin) / yAxisRange);
-                    // Non serve controllare se x < currentScanX_onGraph, il clipping lo fa automaticamente
                      ctx.beginPath();
-                     ctx.arc(x, y, 2, 0, Math.PI * 2);
+                     ctx.arc(x, y, 2, 0, Math.PI*2);
                      ctx.fill();
                 });
                 ctx.globalAlpha = 1.0;
 
-                // 4. Disegna Curva Fittata (Logica di mappatura ripristinata)
-                // Disegniamo l'INTERA curva teorica; il clipping la taglierà alla linea di scansione.
+                // 4. Disegna Curva Fittata
                 ctx.strokeStyle = graphLineColor; ctx.lineWidth = 2; ctx.beginPath();
                 let firstPoint = true;
-                const curveResolution = 1; // 1 punto per pixel orizzontale
-                for (let i = 0; i <= graphWidth; i += curveResolution) {
+                const curveResolution = 1;
+                for (let i = 0; i <= graphWidth; i += curveResolution) { /* ... codice identico a prima ... */
                     const timeForCurve = (i / graphWidth) * totalPathLength;
-                    const planetXForCurve = timeForCurve - planetRadius * 3; // Mappatura inversa
-                    const trueValue = calculateTrueBrightness(planetXForCurve); // Luminosità teorica
-                    const x = i; // Coordinata x = pixel corrente
+                    const planetXForCurve = timeForCurve - planetRadius * 3;
+                    const trueValue = calculateTrueBrightness(planetXForCurve);
+                    const x = i;
                     const y = graphHeight * (1 - (trueValue - yAxisMin) / yAxisRange);
-
                     if (firstPoint) { ctx.moveTo(x, y); firstPoint = false; }
                     else { ctx.lineTo(x, y); }
                 }
-                ctx.stroke(); // Disegna la curva (verrà clippata)
-
+                ctx.stroke();
                 // --- Fine elementi clippati ---
-                ctx.restore(); // Rimuove il clipping, ripristina stato salvato prima del clip
+
+                ctx.restore(); // Rimuove il clipping
 
                 // 5. Disegna la Linea di Scansione (dopo aver rimosso il clip)
-                ctx.strokeStyle = 'rgba(255, 80, 80, 0.8)'; // Rosso più visibile
-                ctx.lineWidth = 1.5; // Leggermente più spessa
-                ctx.beginPath();
-                // Disegna linea verticale alla posizione corrente della scansione
-                ctx.moveTo(currentScanX_onGraph, 0);
-                ctx.lineTo(currentScanX_onGraph, graphHeight);
-                ctx.stroke();
+                ctx.strokeStyle = 'rgba(255, 80, 80, 0.8)'; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(currentScanX_onGraph, 0); ctx.lineTo(currentScanX_onGraph, graphHeight); ctx.stroke();
 
-                ctx.restore(); // Ripristina stato contesto originale (prima del translate)
+
+                // --- 6. DISEGNA ETICHETTE ASSI --- (Dopo clip e linea scansione, ma prima del restore finale)
+                ctx.fillStyle = graphLabelColor; ctx.font = '12px Lato, sans-serif';
+                // Etichetta Asse X
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('Tempo Relativo', graphWidth / 2, graphHeight + 10); // Sotto asse X
+                // Etichetta Asse Y
+                ctx.save(); // Salva stato prima di ruotare/traslare per label Y
+                ctx.translate(-graphMargin.left + 15, graphHeight / 2); // Posiziona a sinistra asse Y, centrato V
+                ctx.rotate(-Math.PI / 2); // Ruota testo
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Luminosità Relativa', 0, 0);
+                ctx.restore(); // Ripristina stato dopo label Y
+
+                ctx.restore(); // Ripristina stato contesto originale (annulla translate iniziale)
             }
 
-            // --- Aggiornamento Dati (Logica di mappatura ripristinata) ---
-            function updateData() {
+
+            // --- Aggiornamento Dati (come prima) ---
+            function updateData() { /* ... codice identico ... */
                 const trueBrightness = calculateTrueBrightness(planetX);
                 const noise = (Math.random() - 0.5) * (transitDepth * 0.5);
                 const noisyBrightness = trueBrightness + noise;
-                // Mappa la posizione corrente planetX a un valore 'time' per il grafico
-                const graphTime = planetX + planetRadius * 3; // Mappatura originale
+                const graphTime = planetX + planetRadius * 3;
                 lightCurveData.push({ time: graphTime, value: noisyBrightness, trueValue: trueBrightness });
             }
 
-            // --- Loop di Animazione ---
-            function animate() {
-                ctx.clearRect(0, 0, canvasWidth, canvasHeight); // Pulisci sempre tutto
-
-                // 1. Muovi Pianeta
+            // --- Loop di Animazione (come prima) ---
+            function animate() { /* ... codice identico ... */
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
                 planetX += planetSpeed;
                 frameCount++;
-
-                // 2. Gestisci Reset (basato sulla mappatura originale)
                 const currentTimeMapped = planetX + planetRadius * 3;
-                // Resetta quando il 'tempo mappato' supera la lunghezza totale del percorso
-                if (currentTimeMapped > totalPathLength) {
-                    planetX = planetStartX; // Ritorna all'inizio
-                    lightCurveData = [];    // Cancella i dati del grafico precedente
+                if (currentTimeMapped > totalPathLength) { // Semplificato reset
+                    planetX = planetStartX;
+                    lightCurveData = [];
                     frameCount = 0;
                 }
-
-                // 3. Aggiorna Dati (Campionamento)
                 if (frameCount % samplingInterval === 0) {
-                   updateData(); // Acquisisce dati basati sulla planetX corrente
+                   updateData();
                 }
-
-                // 4. Disegna Stella e Pianeta
                 drawStar();
-                drawPlanet(); // Nella posizione planetX corrente
-
-                // 5. Calcola Posizione Linea di Scansione sul Grafico
-                // Mappa il tempo corrente (basato su planetX) alla coordinata X del grafico
+                drawPlanet();
                 const currentScanX_onGraph = Math.max(0, Math.min(graphWidth, (currentTimeMapped / totalPathLength) * graphWidth));
-
-                // 6. Disegna Grafico passando la posizione della linea di scansione
                 drawGraph(currentScanX_onGraph);
-
-                animationFrameId = requestAnimationFrame(animate); // Prossimo frame
+                animationFrameId = requestAnimationFrame(animate);
             }
 
             // --- Controllo Visibilità (come prima) ---
@@ -761,7 +746,7 @@
 
         } else { // Gestione Canvas non supportato (come prima)
             /* ... codice identico ... */
-            console.error("Canvas non supportato o non trovato.");
+             console.error("Canvas non supportato o non trovato.");
             const container = document.getElementById('transit-deep-dive').querySelector('.canvas-container');
             if(container) { container.innerHTML = '<p style="color: #ffdd57; text-align: center;">Animazione non disponibile: ...</p>'; }
         }
