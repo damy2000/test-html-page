@@ -553,7 +553,8 @@
         </footer>
 
     </div>
-<script>
+
+    <script>
     // Attendere che il DOM sia completamente caricato
     document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('transitCanvas');
@@ -562,37 +563,40 @@
             const canvasWidth = canvas.width;
             const canvasHeight = canvas.height;
 
-            // --- Parametri Stella, Pianeta ---
+            // --- Parametri Stella ---
             const starRadius = 60;
             const starX = canvasWidth / 2;
             const starY = canvasHeight / 2 - 60;
             const starColor = '#FFD700';
             const starGlowColor = 'rgba(255, 215, 0, 0.4)';
 
+            // --- Parametri Pianeta ---
             const planetRadius = 15;
             const planetColor = '#222';
             const planetStartX = -planetRadius * 3;
             let planetX = planetStartX;
-            const planetY = starY;
+            // *** NUOVO: Abbassa il percorso del pianeta ***
+            const planetYOffset = starRadius * 0.4; // Offset verso il basso (es. 40% del raggio stellare)
+            const planetY = starY + planetYOffset; // Coordinata Y fissa del pianeta, ora più bassa
+            // ---
             const planetSpeed = 0.7;
             const totalPathLength = canvasWidth + 6 * planetRadius;
 
             // --- Parametri Grafico ---
-            // Aumenta leggermente margini per fare spazio alle label
             const graphMargin = { top: 20, right: 20, bottom: 40, left: 50 };
-            const graphY = starY + starRadius + 40;
+            const graphY = starY + starRadius + 40; // Grafico posizionato sotto l'animazione
             const graphHeight = canvasHeight - graphY - graphMargin.bottom;
             const graphWidth = canvasWidth - graphMargin.left - graphMargin.right;
             const graphX = graphMargin.left;
 
             const maxBrightness = 1.0;
-            const transitDepth = 0.1;
+            const transitDepth = 0.1; // Profondità massima teorica (per transito centrale)
             const minBrightness = maxBrightness - transitDepth;
 
             const graphLineColor = '#4ecdc4';
             const graphPointColor = 'rgba(200, 200, 200, 0.7)';
             const graphAxisColor = '#aaa';
-            const graphLabelColor = '#ccc'; // Colore per le etichette ripristinato
+            const graphLabelColor = '#ccc';
 
             // --- Dati Curva di Luce & Animazione ---
             let lightCurveData = [];
@@ -604,9 +608,9 @@
             function smoothstep(edge0, edge1, x) { /* ... codice identico ... */
                 x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
                 return x * x * (3 - 2 * x);
-            }
+             }
 
-            // --- Funzioni di Disegno (drawStar, drawPlanet come prima) ---
+            // --- Funzioni di Disegno (drawStar, drawPlanet - drawPlanet ora usa nuova planetY) ---
             function drawStar() { /* ... codice identico ... */
                 ctx.shadowBlur = 15; ctx.shadowColor = starGlowColor;
                 ctx.fillStyle = starColor; ctx.beginPath();
@@ -614,23 +618,45 @@
                 ctx.shadowBlur = 0; ctx.fillStyle = starColor; ctx.beginPath();
                 ctx.arc(starX, starY, starRadius * 0.98, 0, Math.PI * 2); ctx.fill();
              }
+            // drawPlanet ora disegnerà alla nuova coordinata planetY (più bassa)
             function drawPlanet() { /* ... codice identico ... */
                 ctx.fillStyle = planetColor; ctx.beginPath();
                 ctx.arc(planetX, planetY, planetRadius, 0, Math.PI * 2); ctx.fill();
              }
 
-            // --- Calcolo Luminosità Teorica (come prima) ---
-            function calculateTrueBrightness(currentPlanetX) { /* ... codice identico ... */
-                const distance = Math.abs(currentPlanetX - starX);
-                const r_s = starRadius; const r_p = planetRadius;
-                const transitStartEdge = r_s + r_p; const transitFullStart = r_s - r_p;
-                if (distance >= transitStartEdge) return maxBrightness;
-                if (distance <= transitFullStart) return minBrightness;
-                const transitionFactor = 1.0 - smoothstep(transitFullStart, transitStartEdge, distance);
-                return maxBrightness - transitionFactor * transitDepth;
-             }
+            // --- Calcolo Luminosità Teorica (AGGIORNATO per distanza 2D) ---
+            function calculateTrueBrightness(currentPlanetX) {
+                // Calcola distanza 2D tra i centri
+                const dx = currentPlanetX - starX;
+                const dy = planetY - starY; // Questo è costantemente planetYOffset
+                const distance = Math.sqrt(dx*dx + dy*dy); // Distanza 2D
 
-            // --- Disegno Grafico (CON CLIPPING e CON ETICHETTE) ---
+                const r_s = starRadius;
+                const r_p = planetRadius;
+                const transitStartEdge = r_s + r_p; // Distanza per T1/T4
+                const transitFullStart = r_s - r_p; // Distanza per T2/T3 (se non radente)
+
+                if (distance >= transitStartEdge) {
+                    return maxBrightness; // Fuori transito
+                }
+                // Se la distanza minima (dy) è maggiore della distanza per l'inizio del transito completo (r_s - r_p),
+                // allora il transito è radente e non raggiungerà mai la profondità minima teorica.
+                else if (distance <= transitFullStart && dy <= (r_s - r_p)) {
+                     // Siamo in transito completo (possibile solo se non radente)
+                    return minBrightness;
+                }
+                else {
+                    // Fase parziale (Ingress/Egress) o transito radente
+                    // Usiamo smoothstep basato sulla distanza 2D per la transizione.
+                    // Usiamo la versione più semplice che interpola tra max e min teorico.
+                    // Per i transiti radenti, la 'distance' non scenderà mai abbastanza
+                    // da portare il risultato di smoothstep a 1, limitando naturalmente la profondità.
+                    const transitionFactor = 1.0 - smoothstep(transitFullStart, transitStartEdge, distance);
+                    return maxBrightness - transitionFactor * transitDepth;
+                }
+            }
+
+            // --- Disegno Grafico (come nella versione precedente con etichette) ---
             function drawGraph(currentScanX_onGraph) {
                 ctx.save(); // Salva stato contesto generale
                 ctx.translate(graphX, graphY); // Sposta origine in alto a sx area grafico
@@ -641,7 +667,7 @@
                 ctx.lineTo(graphWidth, graphHeight); // Asse X
                 ctx.stroke();
 
-                // 2. Scala Y
+                // 2. Scala Y (come prima)
                 const yAxisMin = minBrightness - transitDepth * 0.3;
                 const yAxisMax = maxBrightness + transitDepth * 0.3;
                 const yAxisRange = yAxisMax - yAxisMin;
@@ -671,6 +697,7 @@
                 for (let i = 0; i <= graphWidth; i += curveResolution) { /* ... codice identico a prima ... */
                     const timeForCurve = (i / graphWidth) * totalPathLength;
                     const planetXForCurve = timeForCurve - planetRadius * 3;
+                    // Usa la nuova funzione che calcola luminosità con distanza 2D
                     const trueValue = calculateTrueBrightness(planetXForCurve);
                     const x = i;
                     const y = graphHeight * (1 - (trueValue - yAxisMin) / yAxisRange);
@@ -687,25 +714,20 @@
                 ctx.beginPath(); ctx.moveTo(currentScanX_onGraph, 0); ctx.lineTo(currentScanX_onGraph, graphHeight); ctx.stroke();
 
 
-                // --- 6. DISEGNA ETICHETTE ASSI --- (Dopo clip e linea scansione, ma prima del restore finale)
+                // 6. DISEGNA ETICHETTE ASSI (come prima)
                 ctx.fillStyle = graphLabelColor; ctx.font = '12px Lato, sans-serif';
-                // Etichetta Asse X
                 ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-                ctx.fillText('Tempo Relativo', graphWidth / 2, graphHeight + 10); // Sotto asse X
-                // Etichetta Asse Y
-                ctx.save(); // Salva stato prima di ruotare/traslare per label Y
-                ctx.translate(-graphMargin.left + 15, graphHeight / 2); // Posiziona a sinistra asse Y, centrato V
-                ctx.rotate(-Math.PI / 2); // Ruota testo
+                ctx.fillText('Tempo Relativo', graphWidth / 2, graphHeight + 10);
+                ctx.save(); ctx.translate(-graphMargin.left + 15, graphHeight / 2); ctx.rotate(-Math.PI / 2);
                 ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-                ctx.fillText('Luminosità Relativa', 0, 0);
-                ctx.restore(); // Ripristina stato dopo label Y
+                ctx.fillText('Luminosità Relativa', 0, 0); ctx.restore();
 
-                ctx.restore(); // Ripristina stato contesto originale (annulla translate iniziale)
+                ctx.restore(); // Ripristina stato contesto originale
             }
-
 
             // --- Aggiornamento Dati (come prima) ---
             function updateData() { /* ... codice identico ... */
+                 // Usa la nuova calculateTrueBrightness basata su distanza 2D
                 const trueBrightness = calculateTrueBrightness(planetX);
                 const noise = (Math.random() - 0.5) * (transitDepth * 0.5);
                 const noisyBrightness = trueBrightness + noise;
@@ -719,7 +741,7 @@
                 planetX += planetSpeed;
                 frameCount++;
                 const currentTimeMapped = planetX + planetRadius * 3;
-                if (currentTimeMapped > totalPathLength) { // Semplificato reset
+                if (currentTimeMapped > totalPathLength) {
                     planetX = planetStartX;
                     lightCurveData = [];
                     frameCount = 0;
@@ -728,17 +750,19 @@
                    updateData();
                 }
                 drawStar();
+                // drawPlanet ora usa la nuova planetY
                 drawPlanet();
                 const currentScanX_onGraph = Math.max(0, Math.min(graphWidth, (currentTimeMapped / totalPathLength) * graphWidth));
+                // drawGraph ora usa la nuova calculateTrueBrightness per la curva
                 drawGraph(currentScanX_onGraph);
                 animationFrameId = requestAnimationFrame(animate);
             }
 
             // --- Controllo Visibilità (come prima) ---
             function handleVisibilityChange() { /* ... codice identico ... */
-                if (document.hidden) { cancelAnimationFrame(animationFrameId); }
+                 if (document.hidden) { cancelAnimationFrame(animationFrameId); }
                 else { cancelAnimationFrame(animationFrameId); animate(); }
-            }
+             }
             document.addEventListener("visibilitychange", handleVisibilityChange, false);
 
             // Avvia l'animazione
